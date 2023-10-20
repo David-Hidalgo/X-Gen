@@ -223,10 +223,9 @@ public class Medicamento {
         }
     }
 
-    public double precioAPagar( double porcentaje) {
-        double precioAPagar = 0;
-        precioAPagar = this.costeProduccion * porcentaje;
-        return precioAPagar;
+    public void precioAPagar( double porcentaje) {
+        porcentaje= porcentaje/100;
+        this.precio = this.getCosteProduccion()+(this.costeProduccion * porcentaje);
     }
 
     public void retirarLote(int numeroLote){
@@ -276,18 +275,20 @@ public class Medicamento {
     public void colocarOferta(){
         if (this.verificar3Meses()){
             this.precio = this.precio * 0.70;
+            System.out.println("El medicamento " + this.nombreMedicamento + " esta en oferta");
+        }else{
+            System.out.println("El medicamento " + this.nombreMedicamento + " aun no esta cerca de vencer");
         }
         
     }
-
 
     public void imprimirInformacion(){
     System.out.println("Nombre: " + this.nombreMedicamento);
     System.out.println("Código: " + this.codigoMedicamento);
     System.out.println("Coste de producción: " + this.costeProduccion);
-    System.out.println("Fecha de caducidad: " + this.caducidad.toString());
-    if (this.precio==0){ System.out.println("Precio: " + this.precio);}
-    else {System.out.println("El precio de venta aun no ha sido establecido");}
+    System.out.println("Fecha de caducidad: " + this.caducidad.get(Calendar.MONTH) + "/" + this.caducidad.get(Calendar.YEAR));
+    if (this.precio==0){ System.out.println("el precio de venta aun no ha sido establecido");}
+    else {System.out.println("Precio: " + this.precio);}
     System.out.println("Unidades existentes: " + this.existencia);
     System.out.println("Número de lote: " + this.numeroLote);
     if(this.vigencia==0)
@@ -297,6 +298,11 @@ public class Medicamento {
     }else{
         System.out.println("El medicamento fue retirado del mercado");
     }
+    }
+
+    @Override
+    public String toString() {
+        return nombreMedicamento;
     }
 }
 

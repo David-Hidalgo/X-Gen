@@ -21,10 +21,11 @@ public class App {
             System.out.println("1. Crear un medicamento");
             System.out.println("2. mostrar medicamentos.");
             System.out.println("3. Establecer Precio de venta en % de ganancias.");
-
             System.out.println("4. Colocar Ofertas");
-            System.out.println("5. Verificar si es necesario reponer inventario");
-            System.out.println("6. Salir");
+            System.out.println("5. Verificar si está vencido");
+            System.out.println("6. Verificar si es necesario reponer inventario");
+            System.out.println("7. Remover lotes de inventario");
+            System.out.println("8. Salir");
             do {
                 System.out.println("Ingrese una opción valida");
                 opcion = in.nextLine();
@@ -57,7 +58,7 @@ public class App {
                     break;
                     case 2:
                         do {
-                            System.out.println("¿Qué nivel desea consultar?");
+                            System.out.println("¿Qué medicamento desea consultar?");
                             System.out.print(listaMedicamentos);
                             do {
                                 do {
@@ -84,23 +85,79 @@ public class App {
                     in.nextLine();
                     break;
                 case 3:
-                    System.out.println("mostrar la secuencia de nodos insertados");
+                    do {
+                        System.out.println("¿Qué medicamento desea modificar?");
+                        System.out.print(listaMedicamentos);
+                        do {
+                            do {
+                                System.out.println("Ingrese una opción valida");
+                                opcion = in.nextLine();
+                            } while (!Validaciones.validarNumero(opcion));
+                        } while (Integer.parseInt(opcion)+1 > listaMedicamentos.size());
+                        numeroOpcion = Integer.parseInt(opcion);
+                        System.out.println("ingrese el porcentaje de ganancia que desea establecer");
+                        do{
+                            do {
+                                System.out.println("Ingrese una opción valida");
+                                opcion = in.nextLine();
+                            } while (!Validaciones.validarNumero(opcion));
+                        }while((Integer.parseInt(opcion) < 20)||(Integer.parseInt(opcion) > 100));
+                        int porcentaje = Integer.parseInt(opcion);
+                        listaMedicamentos.get(numeroOpcion).precioAPagar(porcentaje);
+                        do {
+                            System.out.println("¿Desea establecer el precio de otro Medicamento? (S/N)");
+                            condition = in.nextLine();
+                            if (condition.equalsIgnoreCase("S"))
+                                bandera = true;
+                                else if (condition.equalsIgnoreCase("N")) {
+                                bandera = true;
+                            } else {
+                                bandera = false;
+                                System.out.println("Error escoja una opcion valida");
+                            }
+                        } while (bandera == false);
+                    } while (condition.equalsIgnoreCase("S"));                
                     System.out.println("Presione enter para continuar");
                     in.nextLine();
                     break;
                 case 4:
-                    System.out.println("¿Qué recorrido desea hacer?");
-                    System.out.println("1. Preorden");
-                    System.out.println("2. Inorden");
-                    System.out.println("3. Postorden");
+                    System.out.println("¿Quiere colocar ofertas a los lotes de medicina que van a vencer?");
+                    for (Medicamento medicamento : listaMedicamentos) {
+                        medicamento.colocarOferta();
+                    }
                     System.out.println("Presione enter para continuar");
                     in.nextLine();
                     break;
                 case 5:
-                    System.out.println("Gracias por usar el programa");
-                    System.exit(0);
-                    break;
+                        for (Medicamento medicamento : listaMedicamentos) {
+                            System.out.println("Ingrese el nombre del medicamento que desea retirar");
+                            
+                        }
                 case 6:
+                    for (Medicamento medicamento : listaMedicamentos) {
+                        medicamento.reponerInventario();
+                        System.exit(0);
+                    }
+                    break;
+                case 7:
+                    System.out.println("Ingrese el nombre del medicamento que desea retirar");
+                        System.out.print(listaMedicamentos);
+                        do {
+                            do {
+                                System.out.println("Ingrese una opción valida");
+                                opcion = in.nextLine();
+                            } while (!Validaciones.validarNumero(opcion));
+                        } while (Integer.parseInt(opcion)+1 > listaMedicamentos.size());
+                        numeroOpcion = Integer.parseInt(opcion);
+                        System.out.println("ingrese el numero de lote que desea retirar");
+            
+                            do {
+                                System.out.println("Ingrese una opción valida");
+                                opcion = in.nextLine();
+                            } while (!Validaciones.validarNumero(opcion));
+                        int lote = Integer.parseInt(opcion);
+                        listaMedicamentos.get(numeroOpcion).retirarLote(lote);
+                case 8:
                     System.out.println("Gracias por usar el programa");
                     System.exit(0);
                     break;

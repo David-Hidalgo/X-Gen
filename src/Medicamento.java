@@ -1,8 +1,7 @@
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
-git config --global user.email "you@example.com"
-  git config --global
+  
 public class Medicamento {
     //Atributos
     

@@ -286,7 +286,7 @@ public class Medicamento {
     System.out.println("Nombre: " + this.nombreMedicamento);
     System.out.println("Código: " + this.codigoMedicamento);
     System.out.println("Coste de producción: " + this.costeProduccion);
-    System.out.println("Fecha de caducidad: " + this.caducidad.get(Calendar.MONTH) + "/" + this.caducidad.get(Calendar.YEAR));
+    System.out.println("Fecha de caducidad: " + this.caducidad.get(GregorianCalendar.MONTH) + "/" + this.caducidad.get(GregorianCalendar.YEAR));
     if (this.precio==0){ System.out.println("el precio de venta aun no ha sido establecido");}
     else {System.out.println("Precio: " + this.precio);}
     System.out.println("Unidades existentes: " + this.existencia);

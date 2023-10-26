@@ -129,10 +129,10 @@ public class App {
                     in.nextLine();
                     break;
                 case 5:
-                        for (Medicamento medicamento : listaMedicamentos) {
+                    for (Medicamento medicamento : listaMedicamentos) {
                             medicamento.determinarVencido();
-                            
-                        }
+                    }
+                    break;
                 case 6:
                     for (Medicamento medicamento : listaMedicamentos) {
                         medicamento.reponerInventario();
@@ -147,7 +147,7 @@ public class App {
                     System.out.println("Opción inválida");
                     break;
             }
-        } while (numeroOpcion != 6);
+        } while (numeroOpcion != 7);
         in.close();
         return false;
     }

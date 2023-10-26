@@ -130,7 +130,7 @@ public class App {
                     break;
                 case 5:
                         for (Medicamento medicamento : listaMedicamentos) {
-                            System.out.println("Ingrese el nombre del medicamento que desea retirar");
+                            medicamento.determinarVencido();
                             
                         }
                 case 6:
@@ -140,25 +140,6 @@ public class App {
                     }
                     break;
                 case 7:
-                    System.out.println("Ingrese el nombre del medicamento que desea retirar");
-                        System.out.print(listaMedicamentos);
-                        do {
-                            do {
-                                System.out.println("Ingrese una opción valida");
-                                opcion = in.nextLine();
-                            } while (!Validaciones.validarNumero(opcion));
-                        } while (Integer.parseInt(opcion)+1 > listaMedicamentos.size());
-                        numeroOpcion = Integer.parseInt(opcion);
-                        System.out.println("ingrese el numero de lote que desea retirar");
-            
-                            do {
-                                System.out.println("Ingrese una opción valida");
-                                opcion = in.nextLine();
-                            } while (!Validaciones.validarNumero(opcion));
-                       
-                        int lote = Integer.parseInt(opcion);
-                        listaMedicamentos.get(numeroOpcion).retirarLote(lote);
-                case 8:
                     System.out.println("Gracias por usar el programa");
                     System.exit(0);
                     break;

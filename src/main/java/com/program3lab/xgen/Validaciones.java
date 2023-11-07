@@ -1,3 +1,5 @@
+package com.program3lab.xgen;
+
 public class Validaciones {
     /**función que devuelve verdadero o falso si un String es un número entero o no
      * @param cambiar

@@ -1,7 +1,8 @@
-import java.util.Calendar;
+package com.program3lab.xgen;
+
 import java.util.GregorianCalendar;
 import java.util.Scanner;
-
+  
 public class Medicamento {
     //Atributos
     
@@ -115,8 +116,8 @@ public class Medicamento {
         this.codigoMedicamento=(int)cambiarVariableNumero(sc, "codigo del medicamento");
         this.numeroLote=(int)cambiarVariableNumero(sc, "numero de lote del medicamento");
         this.existencia=(int)(cambiarVariableNumero(sc, "numero de unidades existencia del medicamento"));
-        this.cambiarFecha(sc);
         this.unidadesVendidas=(int)cambiarVariableNumero(sc, "numero de unidades vendidas del medicamento");
+        this.cambiarFecha(sc);
         this.vigencia=(int)cambiarVariableNumero(sc, "la vigencia, que debe estar entre 0, 1 y 2");
         return ;
     }
@@ -124,7 +125,8 @@ public class Medicamento {
     private void cambiarFecha(Scanner sc) {
         int año = (int)cambiarVariableNumero(sc, "año de caducidad del medicamento");
         int mes = (int)cambiarFecha(sc, "mes de caducidad del medicamento");
-        this.caducidad.set(mes, año, 1);
+        this.caducidad.clear();
+        this.caducidad.set(año, mes-1, 1);
         return ;
     }
     private double cambiarFecha(Scanner sc,String cosa) {
@@ -134,7 +136,7 @@ public class Medicamento {
         do {
             System.out.printf("Ingrese el %s \n", cosa);
             opcion = sc.nextLine();
-            if (!Validaciones.validarNumero(opcion) || (Double.parseDouble(opcion)<0 || Double.parseDouble(opcion)>12)) {
+            if (!Validaciones.validarNumero(opcion) || (Double.parseDouble(opcion)<0 || Double.parseDouble(opcion)>13)) {
                 System.out.println("Error escoja un numero");
             } else {
                 do  {
@@ -230,7 +232,7 @@ public class Medicamento {
 
     public void retirarLote(int numeroLote){
         if (this.numeroLote == numeroLote) {
-            this.vigencia = 0;
+            this.vigencia = 2;
         }
 
     }
@@ -243,7 +245,7 @@ public class Medicamento {
 
     private boolean verificar3Meses(){
         GregorianCalendar actual = new GregorianCalendar();
-        actual.add(actual.MONTH, 3);
+        actual.add(GregorianCalendar.MONTH, 3);
         if (this.caducidad.compareTo(actual) < 0) {
             return true;
         } else {
@@ -286,7 +288,7 @@ public class Medicamento {
     System.out.println("Nombre: " + this.nombreMedicamento);
     System.out.println("Código: " + this.codigoMedicamento);
     System.out.println("Coste de producción: " + this.costeProduccion);
-    System.out.println("Fecha de caducidad: " + this.caducidad.get(Calendar.MONTH) + "/" + this.caducidad.get(Calendar.YEAR));
+    System.out.println("Fecha de caducidad: " + this.caducidad.get(GregorianCalendar.YEAR) + "/" + this.caducidad.get(GregorianCalendar.MONTH));
     if (this.precio==0){ System.out.println("el precio de venta aun no ha sido establecido");}
     else {System.out.println("Precio: " + this.precio);}
     System.out.println("Unidades existentes: " + this.existencia);

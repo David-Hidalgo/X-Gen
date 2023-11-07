@@ -1,3 +1,5 @@
+package com.program3lab.xgen;
+
 import java.util.ArrayList;
 
 import java.util.Scanner;
@@ -56,31 +58,31 @@ public class App {
                         listaMedicamentos.add(foo);
                     } while (condition.equalsIgnoreCase("S"));
                     break;
-                    case 2:
+                case 2:
+                    do {
+                        System.out.println("¿Qué medicamento desea consultar?");
+                        System.out.print(listaMedicamentos);
                         do {
-                            System.out.println("¿Qué medicamento desea consultar?");
-                            System.out.print(listaMedicamentos);
                             do {
-                                do {
-                                    System.out.println("Ingrese una opción valida");
-                                    opcion = in.nextLine();
-                                } while (!Validaciones.validarNumero(opcion));
-                            } while (Integer.parseInt(opcion)+1 > listaMedicamentos.size());
-                            numeroOpcion = Integer.parseInt(opcion);
-                            listaMedicamentos.get(numeroOpcion).imprimirInformacion();
-                            do {
-                                System.out.println("¿Desea ver otro Medicamento? (S/N)");
-                                condition = in.nextLine();
-                                if (condition.equalsIgnoreCase("S"))
-                                    bandera = true;
-                                    else if (condition.equalsIgnoreCase("N")) {
-                                    bandera = true;
-                                } else {
-                                    bandera = false;
-                                    System.out.println("Error escoja una opcion valida");
-                                }
-                            } while (bandera == false);
-                        } while (condition.equalsIgnoreCase("S"));                
+                                System.out.println("Ingrese una opción valida");
+                                opcion = in.nextLine();
+                            } while (!Validaciones.validarNumero(opcion));
+                        } while (Integer.parseInt(opcion)+1 > listaMedicamentos.size());
+                        numeroOpcion = Integer.parseInt(opcion);
+                        listaMedicamentos.get(numeroOpcion).imprimirInformacion();
+                        do {
+                            System.out.println("¿Desea ver otro Medicamento? (S/N)");
+                            condition = in.nextLine();
+                            if (condition.equalsIgnoreCase("S"))
+                                bandera = true;
+                                else if (condition.equalsIgnoreCase("N")) {
+                                bandera = true;
+                            } else {
+                                bandera = false;
+                                System.out.println("Error escoja una opcion valida");
+                            }
+                        } while (bandera == false);
+                    } while (condition.equalsIgnoreCase("S"));                
                     System.out.println("Presione enter para continuar");
                     in.nextLine();
                     break;
@@ -127,36 +129,35 @@ public class App {
                     }
                     System.out.println("Presione enter para continuar");
                     in.nextLine();
+                    System.out.println();
                     break;
                 case 5:
-                        for (Medicamento medicamento : listaMedicamentos) {
-                            System.out.println("Ingrese el nombre del medicamento que desea retirar");
-                            
-                        }
+                    for (Medicamento medicamento : listaMedicamentos) {
+                        medicamento.determinarVencido();
+                    }
+                    System.out.println("Presione enter para continuar");
+                    in.nextLine();
+                    System.out.println();
+                    break;
                 case 6:
                     for (Medicamento medicamento : listaMedicamentos) {
                         medicamento.reponerInventario();
-                        System.exit(0);
                     }
+                    System.out.println();
                     break;
                 case 7:
-                    System.out.println("Ingrese el nombre del medicamento que desea retirar");
-                        System.out.print(listaMedicamentos);
-                        do {
-                            do {
-                                System.out.println("Ingrese una opción valida");
-                                opcion = in.nextLine();
-                            } while (!Validaciones.validarNumero(opcion));
-                        } while (Integer.parseInt(opcion)+1 > listaMedicamentos.size());
-                        numeroOpcion = Integer.parseInt(opcion);
-                        System.out.println("ingrese el numero de lote que desea retirar");
-            
-                            do {
-                                System.out.println("Ingrese una opción valida");
-                                opcion = in.nextLine();
-                            } while (!Validaciones.validarNumero(opcion));
-                        int lote = Integer.parseInt(opcion);
-                        listaMedicamentos.get(numeroOpcion).retirarLote(lote);
+                    System.out.println("Escriba el numero de lote a retirar.");
+                    do {
+                        System.out.println("Ingrese una opción valida");
+                        opcion = in.nextLine();
+                    } while (!Validaciones.validarNumero(opcion));
+                    int loteRetirable = Integer.parseInt(opcion);
+                    
+                    for (Medicamento medicamento : listaMedicamentos) {
+                        medicamento.retirarLote(loteRetirable);
+                    }
+                    System.out.println();
+                    break;
                 case 8:
                     System.out.println("Gracias por usar el programa");
                     System.exit(0);
@@ -165,7 +166,7 @@ public class App {
                     System.out.println("Opción inválida");
                     break;
             }
-        } while (numeroOpcion != 6);
+        } while (numeroOpcion != 8);
         in.close();
         return false;
     }

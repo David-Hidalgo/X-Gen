@@ -29,7 +29,7 @@ public class App {
             System.out.println("7. Remover lotes de inventario");
             System.out.println("8. Salir");
             do {
-                System.out.println("Ingrese una opción valida");
+                System.out.println("Ingrese un número entre 1 y 8");
                 opcion = in.nextLine();
             } while (!Validaciones.validarNumero(opcion));
             numeroOpcion = Integer.parseInt(opcion);
@@ -39,7 +39,7 @@ public class App {
                     String condition;
                     System.out.println("Menú de creación");
                     do {
-                        Medicamento foo = new Medicamento();
+                        Medicamento foo = new MedicamentoRefrigerado();
                         foo.leerDatos();
                         System.out.println("Mande una tecla para continuar");
                         in.nextLine();
@@ -64,9 +64,12 @@ public class App {
                         System.out.print(listaMedicamentos);
                         do {
                             do {
-                                System.out.println("Ingrese una opción valida");
                                 opcion = in.nextLine();
+                                if(!Validaciones.validarNumero(opcion))
+                                    System.out.println("Ingrese un numero por favor");
                             } while (!Validaciones.validarNumero(opcion));
+                            if(Integer.parseInt(opcion)+1 > listaMedicamentos.size())
+                                System.out.println("Ingrese un numero valido");
                         } while (Integer.parseInt(opcion)+1 > listaMedicamentos.size());
                         numeroOpcion = Integer.parseInt(opcion);
                         listaMedicamentos.get(numeroOpcion).imprimirInformacion();
@@ -92,17 +95,23 @@ public class App {
                         System.out.print(listaMedicamentos);
                         do {
                             do {
-                                System.out.println("Ingrese una opción valida");
                                 opcion = in.nextLine();
+                                if(!Validaciones.validarNumero(opcion))
+                                    System.out.println("Ingrese un numero por favor");
                             } while (!Validaciones.validarNumero(opcion));
+                            if(Integer.parseInt(opcion)+1 > listaMedicamentos.size())
+                                System.out.println("Ingrese un numero valido");
                         } while (Integer.parseInt(opcion)+1 > listaMedicamentos.size());
                         numeroOpcion = Integer.parseInt(opcion);
-                        System.out.println("ingrese el porcentaje de ganancia que desea establecer");
+                        System.out.println("ingrese el porcentaje de ganancia que desea establecer (20-100))");
                         do{
                             do {
-                                System.out.println("Ingrese una opción valida");
                                 opcion = in.nextLine();
+                                if(!Validaciones.validarNumero(opcion))
+                                    System.out.println("Ingrese un numero por favor");
                             } while (!Validaciones.validarNumero(opcion));
+                            if((Integer.parseInt(opcion) < 20)||(Integer.parseInt(opcion) > 100))
+                                System.out.println("Ingrese un numero entre 20 y 100");
                         }while((Integer.parseInt(opcion) < 20)||(Integer.parseInt(opcion) > 100));
                         int porcentaje = Integer.parseInt(opcion);
                         listaMedicamentos.get(numeroOpcion).precioAPagar(porcentaje);
@@ -115,7 +124,7 @@ public class App {
                                 bandera = true;
                             } else {
                                 bandera = false;
-                                System.out.println("Error escoja una opcion valida");
+                                System.out.println("Error ingrese una opcion valida");
                             }
                         } while (bandera == false);
                     } while (condition.equalsIgnoreCase("S"));                
@@ -148,15 +157,20 @@ public class App {
                 case 7:
                     System.out.println("Escriba el numero de lote a retirar.");
                     do {
-                        System.out.println("Ingrese una opción valida");
                         opcion = in.nextLine();
+                        if(!Validaciones.validarNumero(opcion))
+                            System.out.println("Ingrese un numero por favor");
                     } while (!Validaciones.validarNumero(opcion));
                     int loteRetirable = Integer.parseInt(opcion);
-                    
+                    int i = 0;
                     for (Medicamento medicamento : listaMedicamentos) {
-                        medicamento.retirarLote(loteRetirable);
+                        if (medicamento.retirarLote(loteRetirable))
+                            i++;
                     }
                     System.out.println();
+                    if (i==0) {
+                        System.out.println("el numero ingresado no es un lote valido");
+                    }
                     break;
                 case 8:
                     System.out.println("Gracias por usar el programa");

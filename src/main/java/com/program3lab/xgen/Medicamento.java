@@ -2,8 +2,8 @@ package com.program3lab.xgen;
 
 import java.util.GregorianCalendar;
 import java.util.Scanner;
-  
-public class Medicamento {
+
+public abstract class Medicamento{
     //Atributos
     
     private String nombreMedicamento;
@@ -109,35 +109,53 @@ public class Medicamento {
 
     //Métodos
 
+    final String mensajeVigencia ="la vigencia, que debe estar entre \\n" +
+    " 0. No está Disponible \n" +
+    " 1. Está Disponible \n" +
+    " 2. Fue retirado del mercado ";
+    
     public void leerDatos() {
         Scanner sc = new Scanner(System.in);
         this.nombreMedicamento=cambiarVariableString(sc, "nombre del Medicamento");
         this.costeProduccion=(int)cambiarVariableNumero(sc, "coste de producción del medicamento");
-        this.codigoMedicamento=(int)cambiarVariableNumero(sc, "codigo del medicamento");
+        do {
+            this.codigoMedicamento=(int)cambiarVariableNumero(sc, "codigo del medicamento");
+            if (this.codigoMedicamento<1000000 || this.codigoMedicamento>999999999) {
+                System.out.println("Error, el codigo debe ser de 7 a 9 digitos");
+            }
+        } while (this.codigoMedicamento<1000000 || this.codigoMedicamento>999999999);
         this.numeroLote=(int)cambiarVariableNumero(sc, "numero de lote del medicamento");
         this.existencia=(int)(cambiarVariableNumero(sc, "numero de unidades existencia del medicamento"));
-        this.unidadesVendidas=(int)cambiarVariableNumero(sc, "numero de unidades vendidas del medicamento");
+        do {
+            this.unidadesVendidas=(int)cambiarVariableNumero(sc, "numero de unidades vendidas del medicamento");
+            if (this.existencia<this.unidadesVendidas) {
+                System.out.println("Error, las unidades vendidas no pueden ser mayores a las existentes");
+            }
+        } while (this.existencia>this.unidadesVendidas);
         this.cambiarFecha(sc);
-        this.vigencia=(int)cambiarVariableNumero(sc, "la vigencia, que debe estar entre 0, 1 y 2");
-        return ;
+        this.vigencia=(int)cambiarVariableNumero(sc, mensajeVigencia);
     }
 
-    private void cambiarFecha(Scanner sc) {
+    protected void cambiarFecha(Scanner sc) {
         int año = (int)cambiarVariableNumero(sc, "año de caducidad del medicamento");
         int mes = (int)cambiarFecha(sc, "mes de caducidad del medicamento");
         this.caducidad.clear();
         this.caducidad.set(año, mes-1, 1);
         return ;
     }
-    private double cambiarFecha(Scanner sc,String cosa) {
+    protected double cambiarFecha(Scanner sc,String cosa) {
         String condition="n";
         String opcion;
         boolean bandera;
         do {
             System.out.printf("Ingrese el %s \n", cosa);
             opcion = sc.nextLine();
-            if (!Validaciones.validarNumero(opcion) || (Double.parseDouble(opcion)<0 || Double.parseDouble(opcion)>13)) {
-                System.out.println("Error escoja un numero");
+            if (!Validaciones.validarNumero(opcion) || (Double.parseDouble(opcion)<1 || Double.parseDouble(opcion)>12)) {
+                if(!Validaciones.validarNumero(opcion)){
+                    System.out.println("Error escoja un numero");
+                    }else{
+                        System.out.println("Error escoja un numero entre 1 y 12 para representar el mes");
+                    }
             } else {
                 do  {
                     System.out.println("esto es lo que usted quiere ingresar: " + opcion);
@@ -160,7 +178,7 @@ public class Medicamento {
         return valor;
     }
 
-    private String cambiarVariableString(Scanner sc, String cosa) {
+    protected String cambiarVariableString(Scanner sc, String cosa) {
         String condition="n";
         String opcion;
         boolean bandera;
@@ -183,7 +201,7 @@ public class Medicamento {
         System.out.println("El dato se ha insertado correctamente");
         return opcion;
     }
-    private double cambiarVariableNumero(Scanner sc, String cosa) {
+    protected double cambiarVariableNumero(Scanner sc, String cosa) {
         String condition="n";
         String opcion;
         boolean bandera;
@@ -192,7 +210,7 @@ public class Medicamento {
             opcion = sc.nextLine();
             if (!Validaciones.validarNumero(opcion)) {
                 System.out.println("Error escoja un numero");
-            } else if ((cosa.equals("la vigencia, que debe estar entre 0, 1 y 2")) && (Double.parseDouble(opcion)<0 || Double.parseDouble(opcion)>2)){
+            } else if ((cosa.equals(mensajeVigencia)) && (Double.parseDouble(opcion)<0 || Double.parseDouble(opcion)>2)){
                 System.out.println("Error escoja un numero entre 0 y 2");
             } else {
                 do  {
@@ -201,7 +219,7 @@ public class Medicamento {
                     condition = sc.nextLine();
                     if (condition.equalsIgnoreCase("S"))
                         bandera = true;
-                        else if (condition.equalsIgnoreCase("N")) {
+                    else if (condition.equalsIgnoreCase("N")) {
                         bandera = true;
                     } else {
                         bandera = false;
@@ -210,8 +228,11 @@ public class Medicamento {
                     
                 } while (bandera == false);
                 }
-        } while (!Validaciones.validarNumero(opcion) || (condition.equalsIgnoreCase("N")));
+                if (Double.parseDouble(opcion)>2000000000){
+                    System.out.println("El dato es muy grande, escoja un valor razonable");}
+        } while (!Validaciones.validarNumero(opcion) || (condition.equalsIgnoreCase("N"))||(Double.parseDouble(opcion)>2000000000));
         double valor = Double.parseDouble(opcion);
+        
         System.out.println("El dato se ha insertado correctamente");
         return valor;
     }
@@ -230,11 +251,14 @@ public class Medicamento {
         this.precio = this.getCosteProduccion()+(this.costeProduccion * porcentaje);
     }
 
-    public void retirarLote(int numeroLote){
+    public boolean retirarLote(int numeroLote){
         if (this.numeroLote == numeroLote) {
             this.vigencia = 2;
+            return true;
         }
-
+        else {
+            return false;
+        }
     }
 
     public void reponerInventario(){
@@ -243,7 +267,7 @@ public class Medicamento {
         }
     }
 
-    private boolean verificar3Meses(){
+    protected boolean verificar3Meses(){
         GregorianCalendar actual = new GregorianCalendar();
         actual.add(GregorianCalendar.MONTH, 3);
         if (this.caducidad.compareTo(actual) < 0) {
@@ -251,27 +275,6 @@ public class Medicamento {
         } else {
             return false;
         }
-        /*
-        int año = actual.get(actual.YEAR);
-        int mes = actual.get(actual.MONTH);
-        int día = actual.get(actual.DAY_OF_MONTH);
-        if (mes > 9){
-            if(mes==10){
-                nueva = new GregorianCalendar(año+1, 1, día);
-            }else if(mes==11){
-                nueva = new GregorianCalendar(año+1, 2, día);
-            }else{
-                nueva = new GregorianCalendar(año+1, 3, día);
-            }
-        }else{
-            nueva = new GregorianCalendar(año, mes, día);
-        }
-        if (this.caducidad.compareTo(nueva) < 0) {
-            return true;
-        } else {
-            return false;
-        }
-        */
     }
 
     public void colocarOferta(){

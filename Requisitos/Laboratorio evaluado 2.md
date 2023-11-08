@@ -38,3 +38,7 @@ establecidos.
 Fecha de Entrega: Miércoles 08 de Noviembre hasta antes de la
 medianoche
 
+## Requerimientos
+- Debe brindarse la opción al usuario de crear medicamentos con valores predeterminados o medicamentos con todos los datos cargados (leer datos). Después mostrar los submenús correspondientes según cada caso.
+- Modificar los datos de un medicamento.
+- El usuario debe poder seleccionar si desea ver toda la información o sólo un dato en específico.

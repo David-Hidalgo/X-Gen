@@ -40,9 +40,16 @@ public class App {
                     System.out.println("Menú de creación");
                     do {
                         Medicamento foo = new MedicamentoRefrigerado();
+                        
                         foo.leerDatos();
-                        System.out.println("Mande una tecla para continuar");
+                        while (verificarLoteRepetido(listaMedicamentos, foo)) {
+                            System.out.println("El lote ingresado ya existe, ingrese otro");
+                            foo.modificarLote();
+                        }
+                        System.out.println("Medicamento creado con éxito");
+                        System.out.println("Presione una tecla para continuar");
                         in.nextLine();
+                        listaMedicamentos.add(foo);
                         do {
                             System.out.println("¿Desea ingresar otro Medicamento? (S/N)");
                             condition = in.nextLine();
@@ -55,7 +62,6 @@ public class App {
                                 System.out.println("Error escoja una opcion valida");
                             }
                         } while (bandera == false);
-                        listaMedicamentos.add(foo);
                     } while (condition.equalsIgnoreCase("S"));
                     break;
                 case 2:
@@ -91,7 +97,7 @@ public class App {
                     break;
                 case 3:
                     do {
-                        System.out.println("¿Qué medicamento desea modificar?");
+                        System.out.println("¿Qué medicamento desea modificarle el precio?");
                         System.out.print(listaMedicamentos);
                         do {
                             do {
@@ -167,10 +173,12 @@ public class App {
                         if (medicamento.retirarLote(loteRetirable))
                             i++;
                     }
-                    System.out.println();
                     if (i==0) {
-                        System.out.println("el numero ingresado no es un lote valido");
+                        System.out.println("el numero ingresado no es un lote valido, debe coincidir con el numero de lote de algun medicamento");
+                    }else{
+                        System.out.println("Se retiraron "+i+" lotes");
                     }
+                    System.out.println();
                     break;
                 case 8:
                     System.out.println("Gracias por usar el programa");
@@ -183,5 +191,19 @@ public class App {
         } while (numeroOpcion != 8);
         in.close();
         return false;
+    }
+
+    public static boolean verificarLoteRepetido(ArrayList<Medicamento> listaMedicamentos, Medicamento foo) {
+        Boolean bLote = false;
+        if(listaMedicamentos!=null){
+            for (Medicamento medicamento : listaMedicamentos) {
+                if (medicamento.getCodigoMedicamento() == foo.getCodigoMedicamento()) {
+                    if(medicamento.getNumeroLote() == foo.getNumeroLote()){
+                    bLote = true;
+                    }
+                }
+            }
+        }
+        return bLote;
     }
 }

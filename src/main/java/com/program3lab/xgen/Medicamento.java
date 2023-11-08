@@ -1,5 +1,6 @@
 package com.program3lab.xgen;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
@@ -113,7 +114,9 @@ public abstract class Medicamento{
     " 0. No está Disponible \n" +
     " 1. Está Disponible \n" +
     " 2. Fue retirado del mercado ";
-    
+
+
+
     public void leerDatos() {
         Scanner sc = new Scanner(System.in);
         this.nombreMedicamento=cambiarVariableString(sc, "nombre del Medicamento");
@@ -132,8 +135,18 @@ public abstract class Medicamento{
                 System.out.println("Error, las unidades vendidas no pueden ser mayores a las existentes");
             }
         } while (this.existencia>this.unidadesVendidas);
-        this.cambiarFecha(sc);
+        do{
+            this.cambiarFecha(sc);
+            if (this.caducidad.compareTo(new GregorianCalendar())<0) {
+                System.out.println("Error, la fecha de caducidad no puede ser menor a la fecha actual");
+            }
+        }while(this.caducidad.compareTo(new GregorianCalendar())<0);
         this.vigencia=(int)cambiarVariableNumero(sc, mensajeVigencia);
+    }
+
+    protected void modificarLote(){
+    Scanner sc = new Scanner(System.in);
+    this.numeroLote=(int)cambiarVariableNumero(sc, "numero de lote del medicamento");
     }
 
     protected void cambiarFecha(Scanner sc) {
@@ -237,6 +250,17 @@ public abstract class Medicamento{
         return valor;
     }
 
+    public boolean verificarRepetido(Medicamento medicamento ) {
+        if (this.codigoMedicamento == medicamento.getCodigoMedicamento()) {
+            if (this.numeroLote == medicamento.getNumeroLote()) {
+                return true;
+            }
+            return false;
+        } else {
+            return false;
+        }
+    }
+
     public void determinarVencido(){
         GregorianCalendar fechaActual = new GregorianCalendar();
         if (this.caducidad.compareTo(fechaActual) < 0) {
@@ -262,8 +286,18 @@ public abstract class Medicamento{
     }
 
     public void reponerInventario(){
+        Scanner in = new Scanner(System.in);
+        String opcion;
         if(this.existencia < 5){
-            System.out.println("Es necesario reponer el inventario de " + this.nombreMedicamento);
+            System.out.println("Es necesario reponer el inventario de " + this.nombreMedicamento + ",codigo: " + this.codigoMedicamento);
+            System.out.println("¿Cuántas unidades desea reponer?");
+            do {
+            opcion = in.nextLine();
+                if (!Validaciones.validarNumero(opcion))
+                    System.out.println("Error, ingrese un número");
+            } while (!Validaciones.validarNumero(opcion));
+            this.existencia = this.existencia + Integer.parseInt(opcion);
+            System.out.println("El inventario de " + this.nombreMedicamento + " ha sido reabastecido");
         }
     }
 
@@ -304,6 +338,148 @@ public abstract class Medicamento{
         System.out.println("El medicamento fue retirado del mercado");
     }
     }
+
+    public void menuCambiarDatos(){
+        System.out.flush();
+        Scanner sc = new Scanner(System.in);
+        String opcion;
+        int numeroOpcion;
+        do {
+            System.out.println("Bienvenido a la Edición de Medicamentos");
+            System.out.println("¿Qué desea hacer?");
+            System.out.println("1. Editar el nombre del Medicamento");
+            System.out.println("2. Editar el codigo del medicamento");
+            System.out.println("3. Editar el numero de lote");
+            System.out.println("4. Editar el coste de Produccion");
+            System.out.println("5. Editar la caducidad");
+            System.out.println("6. Editar la existencia");
+            System.out.println("7. Editar las unidades vendidas");
+            System.out.println("8. Editar la vigencia");
+            System.out.println("9. Salir");
+            do {
+                System.out.println("Ingrese un número entre 1 y 9");
+                opcion = sc.nextLine();
+            } while (!Validaciones.validarNumero(opcion));
+            numeroOpcion = Integer.parseInt(opcion);
+            System.out.println();
+            switch (numeroOpcion) {
+                case 1:
+                    this.nombreMedicamento=cambiarVariableString(sc, "nombre del Medicamento");
+                    break;
+                case 2:
+                    do {
+                        this.codigoMedicamento=(int)cambiarVariableNumero(sc, "codigo del medicamento");
+                        if (this.codigoMedicamento<1000000 || this.codigoMedicamento>999999999) {
+                            System.out.println("Error, el codigo debe ser de 7 a 9 digitos");
+                        }
+                    } while (this.codigoMedicamento<1000000 || this.codigoMedicamento>999999999);
+                break;
+                case 3:
+                    this.numeroLote=(int)cambiarVariableNumero(sc, "numero de lote del medicamento");
+                break;
+                case 4:
+                    this.costeProduccion=(int)cambiarVariableNumero(sc, "coste de producción del medicamento");
+                    break;
+                case 5:
+                    do{
+                        this.cambiarFecha(sc);
+                        if (this.caducidad.compareTo(new GregorianCalendar())<0) {
+                            System.out.println("Error, la fecha de caducidad no puede ser menor a la fecha actual");
+                        }
+                    }while(this.caducidad.compareTo(new GregorianCalendar())<0);
+                    break;
+                case 6:
+                    this.existencia=(int)(cambiarVariableNumero(sc, "numero de unidades existencia del medicamento"));
+                    break;
+                case 7:
+                    do {
+                        this.unidadesVendidas=(int)cambiarVariableNumero(sc, "numero de unidades vendidas del medicamento");
+                        if (this.existencia<this.unidadesVendidas) {
+                            System.out.println("Error, las unidades vendidas no pueden ser mayores a las existentes");
+                        }
+                    } while (this.existencia>this.unidadesVendidas);
+                    break;
+                case 8:
+                    this.vigencia=(int)cambiarVariableNumero(sc, mensajeVigencia);
+                    break;
+                case 9:
+                    System.out.println("Gracias por usar el programa");
+                    break;
+                default:
+                    System.out.println("Opción inválida");
+                    break;
+            }
+        } while (numeroOpcion != 9);
+    }
+    public void imprimirEspecífico(){
+        System.out.flush();
+        Scanner sc = new Scanner(System.in);
+        String opcion;
+        int numeroOpcion;
+        do {
+            System.out.println("Bienvenido a la Edición de Medicamentos");
+            System.out.println("¿Qué desea hacer?");
+            System.out.println("1. Mostrar el nombre del Medicamento");
+            System.out.println("2. Mostrar el codigo del medicamento");
+            System.out.println("3. Mostrar el numero de lote");
+            System.out.println("4. Mostrar el coste de Produccion");
+            System.out.println("5. Mostrar el precio de Venta");
+            System.out.println("6. Mostrar la caducidad");
+            System.out.println("7. Mostrar la existencia");
+            System.out.println("8. Mostrar las unidades vendidas");
+            System.out.println("9. Mostrar la vigencia");
+            System.out.println("10. Salir");
+            do {
+                System.out.println("Ingrese un número entre 1 y 10");
+                opcion = sc.nextLine();
+            } while (!Validaciones.validarNumero(opcion));
+            numeroOpcion = Integer.parseInt(opcion);
+            System.out.println();
+            switch (numeroOpcion) {
+                case 1:
+                    System.out.println("Nombre: " + this.nombreMedicamento);
+                    break;
+                case 2:
+                    System.out.println("Código: " + this.codigoMedicamento);
+                    break;
+                case 3:
+                    System.out.println("Número de lote: " + this.numeroLote);
+                    break;
+                case 4:
+                    System.out.println("Coste de producción: " + this.costeProduccion);
+                    break;
+                case 5:
+                    if (this.precio==0){ System.out.println("el precio de venta aun no ha sido establecido");}
+                    else {System.out.println("Precio: " + this.precio);}
+                    break;
+                case 6:
+                    System.out.println("Fecha de caducidad: " + this.caducidad.get(GregorianCalendar.YEAR) + "/" + this.caducidad.get(GregorianCalendar.MONTH));
+                    break;
+                case 7:
+                    System.out.println("Unidades existentes: " + this.existencia);
+                    break;
+                case 8:
+                    System.out.println("Unidades vendidas: " + this.unidadesVendidas);
+                    break;
+                case 9:
+                    if(this.vigencia==0)
+                    {System.out.println("El medicamento no se encuentra en el mercado");
+                    }else if(this.vigencia==1){
+                        System.out.println("El medicamento esta disponible");
+                    }else{
+                        System.out.println("El medicamento fue retirado del mercado");
+                    }
+                    break;
+                case 10:
+                    System.out.println("Gracias por usar el programa");
+                    break;
+                default:
+                    System.out.println("Opción inválida");
+                    break;
+            }
+        } while (numeroOpcion != 10);
+    }
+
 
     @Override
     public String toString() {

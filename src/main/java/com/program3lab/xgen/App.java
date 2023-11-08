@@ -6,15 +6,71 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws Exception {
+        ArrayList<Medicamento> listaMedicamentos = new ArrayList<Medicamento>();        
         System.out.println("Hello, World!");
-        menu();
+        menuAdmin(listaMedicamentos);
     }
 
-    private static boolean menu() {
+    private static boolean menuComprador(ArrayList<Medicamento> listaMedicamentos) {
+        System.out.flush();
+        Scanner in = new Scanner(System.in);
+        if (listaMedicamentos.isEmpty()) {
+            boolean bandera;
+            int numeroOpcion;
+            String opcion;
+            do {
+                System.out.println("Bienvenido al programa Medicamentos");
+                System.out.println("¿Qué desea hacer?");
+                System.out.println("1. mostrar todos los medicamentos.");
+                System.out.println("2. Establecer Precio de venta en % de ganancias.");
+                System.out.println("3. Colocar Ofertas");
+                System.out.println("4. Verificar si está vencido");
+                System.out.println("5. Verificar si es necesario reponer inventario");
+                System.out.println("6. Remover lotes de inventario");
+                System.out.println("4. Salir");
+                do {
+                    System.out.println("Ingrese un número entre 1 y 4");
+                    opcion = in.nextLine();
+                } while (!Validaciones.validarNumero(opcion));
+                numeroOpcion = Integer.parseInt(opcion);
+                switch (numeroOpcion) {
+                    case 1:
+                    for (Medicamento medicamento : listaMedicamentos) {
+                        medicamento.imprimirInformacion();
+                        System.out.println();
+                    }
+                    break;
+
+                    case 2:
+                        
+                        break;
+
+                    case 3:
+                        
+                        break;
+
+                    case 4:
+                        
+                        break;
+
+                    default:
+                        break;
+                }
+            } while (numeroOpcion!=8);
+        return true;
+        }else{
+        System.out.println("No hay medicamentos en el inventario");
+        System.out.println("Presione enter para continuar");
+        in.nextLine();
+        return false;
+        }
+    }
+
+    private static boolean menuAdmin(ArrayList<Medicamento> listaMedicamentos) {
+
         System.out.flush();
         Scanner in = new Scanner(System.in);
         boolean bandera;
-        ArrayList<Medicamento> listaMedicamentos = new ArrayList<Medicamento>();        
         String opcion;
         int numeroOpcion;
         do {
@@ -65,33 +121,7 @@ public class App {
                     } while (condition.equalsIgnoreCase("S"));
                     break;
                 case 2:
-                    do {
-                        System.out.println("¿Qué medicamento desea consultar?");
-                        System.out.print(listaMedicamentos);
-                        do {
-                            do {
-                                opcion = in.nextLine();
-                                if(!Validaciones.validarNumero(opcion))
-                                    System.out.println("Ingrese un numero por favor");
-                            } while (!Validaciones.validarNumero(opcion));
-                            if(Integer.parseInt(opcion)+1 > listaMedicamentos.size())
-                                System.out.println("Ingrese un numero valido");
-                        } while (Integer.parseInt(opcion)+1 > listaMedicamentos.size());
-                        numeroOpcion = Integer.parseInt(opcion);
-                        listaMedicamentos.get(numeroOpcion).imprimirInformacion();
-                        do {
-                            System.out.println("¿Desea ver otro Medicamento? (S/N)");
-                            condition = in.nextLine();
-                            if (condition.equalsIgnoreCase("S"))
-                                bandera = true;
-                                else if (condition.equalsIgnoreCase("N")) {
-                                bandera = true;
-                            } else {
-                                bandera = false;
-                                System.out.println("Error escoja una opcion valida");
-                            }
-                        } while (bandera == false);
-                    } while (condition.equalsIgnoreCase("S"));                
+                    seleccionarMedicamento(listaMedicamentos, in);
                     System.out.println("Presione enter para continuar");
                     in.nextLine();
                     break;
@@ -191,6 +221,42 @@ public class App {
         } while (numeroOpcion != 8);
         in.close();
         return false;
+    }
+
+    public static Medicamento seleccionarMedicamento(ArrayList<Medicamento> listaMedicamentos ,Scanner in) {
+        System.out.flush();
+        boolean bandera;
+        String opcion;
+        int numeroOpcion;
+        String condition;
+        do {
+            System.out.println("¿Qué medicamento desea consultar?");
+            System.out.print(listaMedicamentos);
+            do {
+                do {
+                    opcion = in.nextLine();
+                    if(!Validaciones.validarNumero(opcion))
+                        System.out.println("Ingrese un numero por favor");
+                } while (!Validaciones.validarNumero(opcion));
+                if(Integer.parseInt(opcion)+1 > listaMedicamentos.size())
+                    System.out.println("Ingrese un numero valido");
+            } while (Integer.parseInt(opcion)+1 > listaMedicamentos.size());
+            numeroOpcion = Integer.parseInt(opcion);
+            listaMedicamentos.get(numeroOpcion).imprimirInformacion();
+            do {
+                System.out.println("¿Desea ver otro Medicamento? (S/N)");
+                condition = in.nextLine();
+                if (condition.equalsIgnoreCase("S"))
+                    bandera = true;
+                    else if (condition.equalsIgnoreCase("N")) {
+                    bandera = true;
+                } else {
+                    bandera = false;
+                    System.out.println("Error escoja una opcion valida");
+                }
+            } while (bandera == false);
+        } while (condition.equalsIgnoreCase("S"));
+        return listaMedicamentos.get(numeroOpcion);
     }
 
     public static boolean verificarLoteRepetido(ArrayList<Medicamento> listaMedicamentos, Medicamento foo) {

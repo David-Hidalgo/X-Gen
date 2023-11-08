@@ -110,12 +110,10 @@ public abstract class Medicamento{
 
     //Métodos
 
-    final String mensajeVigencia ="la vigencia, que debe estar entre \\n" +
+    final String mensajeVigencia ="la vigencia, que debe estar entre \n" +
     " 0. No está Disponible \n" +
     " 1. Está Disponible \n" +
     " 2. Fue retirado del mercado ";
-
-
 
     public void leerDatos() {
         Scanner sc = new Scanner(System.in);
@@ -227,6 +225,8 @@ public abstract class Medicamento{
                 System.out.println("Error escoja un numero entre 0 y 2");
             } else {
                 do  {
+                    if (Double.parseDouble(opcion)>2000000000){
+                        System.out.println("El dato es muy grande, escoja un valor razonable");}
                     System.out.println("esto es lo que usted quiere ingresar: " + opcion);
                     System.out.println("¿Es correcto? (S/N)");
                     condition = sc.nextLine();
@@ -241,8 +241,6 @@ public abstract class Medicamento{
                     
                 } while (bandera == false);
                 }
-                if (Double.parseDouble(opcion)>2000000000){
-                    System.out.println("El dato es muy grande, escoja un valor razonable");}
         } while (!Validaciones.validarNumero(opcion) || (condition.equalsIgnoreCase("N"))||(Double.parseDouble(opcion)>2000000000));
         double valor = Double.parseDouble(opcion);
         
@@ -298,7 +296,8 @@ public abstract class Medicamento{
             } while (!Validaciones.validarNumero(opcion));
             this.existencia = this.existencia + Integer.parseInt(opcion);
             System.out.println("El inventario de " + this.nombreMedicamento + " ha sido reabastecido");
-        }
+        }else{
+            System.out.println("El inventario de " + this.nombreMedicamento + " no necesita ser reabastecido");}
     }
 
     protected boolean verificar3Meses(){

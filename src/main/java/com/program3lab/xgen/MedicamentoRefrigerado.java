@@ -23,6 +23,47 @@ public class MedicamentoRefrigerado extends Medicamento{
 
     //Getters y Setters
 
+    public double getTemperaturaMinima() {
+        return temperaturaMinima;
+    }
+
+    public void setTemperaturaMinima(double temperaturaMinima) {
+        this.temperaturaMinima = temperaturaMinima;
+    }
+
+    public double getTemperaturaMaxima() {
+        return temperaturaMaxima;
+    }
+
+    public void setTemperaturaMaxima(double temperaturaMaxima) {
+        this.temperaturaMaxima = temperaturaMaxima;
+    }
+
+    public double getTemperaturaRecomendada() {
+        return temperaturaRecomendada;
+    }
+
+    public void setTemperaturaRecomendada(double temperaturaRecomendada) {
+        this.temperaturaRecomendada = temperaturaRecomendada;
+    }
+
+    public double getTemperaturaActual() {
+        return temperaturaActual;
+    }
+
+    public void setTemperaturaActual(double temperaturaActual) {
+        this.temperaturaActual = temperaturaActual;
+        listaDetemperaturas.add(temperaturaActual);
+    }
+
+    public ArrayList<Double> getListaDetemperaturas() {
+        return listaDetemperaturas;
+    }
+
+    public void setListaDetemperaturas(ArrayList<Double> listaDetemperaturas) {
+        this.listaDetemperaturas = listaDetemperaturas;
+    }
+
     //Metodos
 
 }

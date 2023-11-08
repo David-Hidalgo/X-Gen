@@ -22,27 +22,27 @@ public class App {
                 System.out.println("Bienvenido al programa Medicamentos");
                 System.out.println("¿Qué desea hacer?");
                 System.out.println("1. mostrar todos los medicamentos.");
-                System.out.println("2. Establecer Precio de venta en % de ganancias.");
+                System.out.println("2. Seleccionar un medicamento para ver su informacion.");
                 System.out.println("3. Colocar Ofertas");
                 System.out.println("4. Verificar si está vencido");
                 System.out.println("5. Verificar si es necesario reponer inventario");
                 System.out.println("6. Remover lotes de inventario");
-                System.out.println("4. Salir");
+                System.out.println("0. Salir");
                 do {
-                    System.out.println("Ingrese un número entre 1 y 4");
+                    System.out.println("Ingrese un número entre 0 y 4");
                     opcion = in.nextLine();
                 } while (!Validaciones.validarNumero(opcion));
                 numeroOpcion = Integer.parseInt(opcion);
                 switch (numeroOpcion) {
                     case 1:
-                    for (Medicamento medicamento : listaMedicamentos) {
-                        medicamento.imprimirInformacion();
+                        for (Medicamento medicamento : listaMedicamentos) {
+                        medicamento.toString();
                         System.out.println();
-                    }
-                    break;
+                        }
+                        break;
 
                     case 2:
-                        
+                        imprimirInformcaiónString(listaMedicamentos, in);
                         break;
 
                     case 3:
@@ -56,7 +56,7 @@ public class App {
                     default:
                         break;
                 }
-            } while (numeroOpcion!=8);
+            } while (numeroOpcion!=0);
         return true;
         }else{
         System.out.println("No hay medicamentos en el inventario");
@@ -67,7 +67,6 @@ public class App {
     }
 
     private static boolean menuAdmin(ArrayList<Medicamento> listaMedicamentos) {
-
         System.out.flush();
         Scanner in = new Scanner(System.in);
         boolean bandera;
@@ -83,9 +82,10 @@ public class App {
             System.out.println("5. Verificar si está vencido");
             System.out.println("6. Verificar si es necesario reponer inventario");
             System.out.println("7. Remover lotes de inventario");
-            System.out.println("8. Salir");
+            System.out.println("8. Eliminar medicamento");
+            System.out.println("0. Salir");
             do {
-                System.out.println("Ingrese un número entre 1 y 8");
+                System.out.println("Ingrese un número entre 0 y 8");
                 opcion = in.nextLine();
             } while (!Validaciones.validarNumero(opcion));
             numeroOpcion = Integer.parseInt(opcion);
@@ -121,9 +121,7 @@ public class App {
                     } while (condition.equalsIgnoreCase("S"));
                     break;
                 case 2:
-                    seleccionarMedicamento(listaMedicamentos, in);
-                    System.out.println("Presione enter para continuar");
-                    in.nextLine();
+                    imprimirInformcaiónString(listaMedicamentos, in);
                     break;
                 case 3:
                     do {
@@ -139,18 +137,7 @@ public class App {
                                 System.out.println("Ingrese un numero valido");
                         } while (Integer.parseInt(opcion)+1 > listaMedicamentos.size());
                         numeroOpcion = Integer.parseInt(opcion);
-                        System.out.println("ingrese el porcentaje de ganancia que desea establecer (20-100))");
-                        do{
-                            do {
-                                opcion = in.nextLine();
-                                if(!Validaciones.validarNumero(opcion))
-                                    System.out.println("Ingrese un numero por favor");
-                            } while (!Validaciones.validarNumero(opcion));
-                            if((Integer.parseInt(opcion) < 20)||(Integer.parseInt(opcion) > 100))
-                                System.out.println("Ingrese un numero entre 20 y 100");
-                        }while((Integer.parseInt(opcion) < 20)||(Integer.parseInt(opcion) > 100));
-                        int porcentaje = Integer.parseInt(opcion);
-                        listaMedicamentos.get(numeroOpcion).precioAPagar(porcentaje);
+                        listaMedicamentos.get(numeroOpcion).precioAPagar(in);
                         do {
                             System.out.println("¿Desea establecer el precio de otro Medicamento? (S/N)");
                             condition = in.nextLine();
@@ -198,19 +185,22 @@ public class App {
                             System.out.println("Ingrese un numero por favor");
                     } while (!Validaciones.validarNumero(opcion));
                     int loteRetirable = Integer.parseInt(opcion);
-                    int i = 0;
+                    int contador2 = 0;
                     for (Medicamento medicamento : listaMedicamentos) {
                         if (medicamento.retirarLote(loteRetirable))
-                            i++;
+                            contador2++;
                     }
-                    if (i==0) {
+                    if (contador2==0) {
                         System.out.println("el numero ingresado no es un lote valido, debe coincidir con el numero de lote de algun medicamento");
                     }else{
-                        System.out.println("Se retiraron "+i+" lotes");
+                        System.out.println("Se retiraron "+contador2+" lotes");
                     }
                     System.out.println();
                     break;
                 case 8:
+                    eliminarMedicamento(in, listaMedicamentos);
+                    break;
+                case 0:
                     System.out.println("Gracias por usar el programa");
                     System.exit(0);
                     break;
@@ -218,18 +208,34 @@ public class App {
                     System.out.println("Opción inválida");
                     break;
             }
-        } while (numeroOpcion != 8);
+        } while (numeroOpcion != 0);
         in.close();
         return false;
     }
 
+    public static void eliminarMedicamento(Scanner in, ArrayList<Medicamento> listaMedicamentos){
+        String continuar;
+        do {
+            int contador = 0;
+            System.out.println("Selecciones el medicamento que quiere eliminar");
+            contador=listaMedicamentos.indexOf(seleccionarMedicamento(listaMedicamentos, in));
+        continuar = "Está seguro de que quiere eliminar el medicamento "+listaMedicamentos.get(contador).getNombreMedicamento()+" con numero de lote "+listaMedicamentos.get(contador).getNumeroLote()+"? ";
+        continuar=continuar(in, continuar, "error escoja una opcion valida");
+        if (continuar.equalsIgnoreCase("S")) {
+            listaMedicamentos.remove(contador);
+            System.out.println("Medicamento eliminado con exito");
+        }else{
+            System.out.println("Medicamento no eliminado");
+        }
+        continuar=continuar(in, "¿Quiere Eliminar otro medicamento? ", "error escoja una opcion valida");
+        System.out.println();
+        } while (continuar.equalsIgnoreCase("S"));
+    }
+
     public static Medicamento seleccionarMedicamento(ArrayList<Medicamento> listaMedicamentos ,Scanner in) {
         System.out.flush();
-        boolean bandera;
         String opcion;
         int numeroOpcion;
-        String condition;
-        do {
             System.out.println("¿Qué medicamento desea consultar?");
             System.out.print(listaMedicamentos);
             do {
@@ -242,7 +248,36 @@ public class App {
                     System.out.println("Ingrese un numero valido");
             } while (Integer.parseInt(opcion)+1 > listaMedicamentos.size());
             numeroOpcion = Integer.parseInt(opcion);
-            listaMedicamentos.get(numeroOpcion).imprimirInformacion();
+
+        return listaMedicamentos.get(numeroOpcion);
+    }
+
+    public static String continuar(Scanner in, String MensajeEntrada, String MensajeError){
+        String condition;
+        boolean bandera = false;
+        do {
+            System.out.println(MensajeEntrada + " (S/N)");
+            condition = in.nextLine();
+            if (condition.equalsIgnoreCase("S"))
+                bandera = true;
+                else if (condition.equalsIgnoreCase("N")) {
+                bandera = true;
+            } else {
+                bandera = false;
+                System.out.println("Error "+MensajeError);
+            }
+        } while (bandera == false);
+        return condition;
+    }
+
+    private static void imprimirInformcaiónString(ArrayList<Medicamento> listaMedicamentos, Scanner in) {
+        System.out.flush();
+        String condition;
+        boolean bandera;
+        int contador1 = 0;
+        do{
+            contador1=listaMedicamentos.indexOf(seleccionarMedicamento(listaMedicamentos, in));
+            listaMedicamentos.get(contador1).imprimirInformacion();
             do {
                 System.out.println("¿Desea ver otro Medicamento? (S/N)");
                 condition = in.nextLine();
@@ -256,7 +291,8 @@ public class App {
                 }
             } while (bandera == false);
         } while (condition.equalsIgnoreCase("S"));
-        return listaMedicamentos.get(numeroOpcion);
+        System.out.println("Presione enter para continuar");
+        in.nextLine();
     }
 
     public static boolean verificarLoteRepetido(ArrayList<Medicamento> listaMedicamentos, Medicamento foo) {

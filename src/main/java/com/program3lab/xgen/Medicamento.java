@@ -115,10 +115,13 @@ public abstract class Medicamento{
     " 1. Está Disponible \n" +
     " 2. Fue retirado del mercado ";
 
-    public void leerDatos() {
+    public abstract void leerDatos();
+
+    protected void leerDatosBasico() {
         Scanner sc = new Scanner(System.in);
         this.nombreMedicamento=cambiarVariableString(sc, "nombre del Medicamento");
         this.costeProduccion=(int)cambiarVariableNumero(sc, "coste de producción del medicamento");
+        this.precio=(int)cambiarVariableNumero(sc, "precio de venta del medicamento");
         do {
             this.codigoMedicamento=(int)cambiarVariableNumero(sc, "codigo del medicamento");
             if (this.codigoMedicamento<1000000 || this.codigoMedicamento>999999999) {
@@ -268,10 +271,39 @@ public abstract class Medicamento{
         }
     }
 
-    public void precioAPagar( double porcentaje) {
-        porcentaje= porcentaje/100;
-        this.precio = this.getCosteProduccion()+(this.costeProduccion * porcentaje);
-    }
+    public abstract void precioAPagarFinal(Scanner sc);
+
+    protected void precioAPagar(Scanner in){
+        String opcion, condition;
+        boolean bandera = false;
+        int porcentaje;
+        do  {
+            System.out.println("ingrese el porcentaje de ganancia que desea establecer (20-100))");
+            do{
+                do {
+                    opcion = in.nextLine();
+                    if(!Validaciones.validarNumero(opcion))
+                        System.out.println("Ingrese un numero por favor");
+                } while (!Validaciones.validarNumero(opcion));
+                if((Integer.parseInt(opcion) < 20)||(Integer.parseInt(opcion) > 100))
+                    System.out.println("Ingrese un numero entre 20 y 100");
+            }while((Integer.parseInt(opcion) < 20)||(Integer.parseInt(opcion) > 100));
+            porcentaje = Integer.parseInt(opcion);
+            System.out.println("esto es lo que usted quiere ingresar: " + opcion);
+            System.out.println("¿Es correcto? (S/N)");
+            condition = in.nextLine();
+            if (condition.equalsIgnoreCase("S"))
+                bandera = true;
+                else if (condition.equalsIgnoreCase("N")) {
+                bandera = false;
+            } else {
+                bandera = false;
+                System.out.println("Error escoja una opcion valida");
+            }
+        } while (bandera == false);
+        this.precio = this.costeProduccion * (porcentaje/100);
+        System.out.println("El dato se ha insertado correctamente");
+}
 
     public boolean retirarLote(int numeroLote){
         if (this.numeroLote == numeroLote) {
@@ -286,7 +318,7 @@ public abstract class Medicamento{
     public void reponerInventario(){
         Scanner in = new Scanner(System.in);
         String opcion;
-        if(this.existencia < 5){
+        if((this.existencia-this.unidadesVendidas) <= 5){
             System.out.println("Es necesario reponer el inventario de " + this.nombreMedicamento + ",codigo: " + this.codigoMedicamento);
             System.out.println("¿Cuántas unidades desea reponer?");
             do {

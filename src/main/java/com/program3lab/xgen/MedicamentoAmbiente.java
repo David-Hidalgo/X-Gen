@@ -1,7 +1,7 @@
 package com.program3lab.xgen;
 
 import java.util.Scanner;
-
+import java.util.ArrayList;
 public class MedicamentoAmbiente extends Medicamento{
     //Atributos
     private String[] condicionesAlmacenamiento;
@@ -20,6 +20,16 @@ public class MedicamentoAmbiente extends Medicamento{
         this.condicionesAlmacenamiento = condicionesAlmacenamiento;
     }
     //Metodos
+
+    public void leerDatos() {
+        Scanner sc = new Scanner(System.in);
+        super.leerDatosBasico();
+        this.leerDatosAlmacenamiento(sc);
+    }
+
+    public void precioAPagarFinal(Scanner sc) {
+        super.precioAPagar(sc);
+    }
 
     protected void leerDatosAlmacenamiento(Scanner sc) {
         System.out.println("Ingrese las condiciones de almacenamiento del medicamento: ");

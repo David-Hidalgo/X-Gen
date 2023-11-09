@@ -1,23 +1,22 @@
 package com.program3lab.xgen;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 public class MedicamentoAmbiente extends Medicamento{
     //Atributos
-    private String[] condicionesAlmacenamiento;
+    private String[] lugaresNoAlmacenamiento;
     //Constructores
     MedicamentoAmbiente(){
         super();
-        this.condicionesAlmacenamiento = new String[3];
+        this.lugaresNoAlmacenamiento = new String[3];
     }
     //Getters y Setters
 
     public String[] getCondicionesAlmacenamiento() {
-        return condicionesAlmacenamiento;
+        return lugaresNoAlmacenamiento;
     }
 
-    public void setCondicionesAlmacenamiento(String[] condicionesAlmacenamiento) {
-        this.condicionesAlmacenamiento = condicionesAlmacenamiento;
+    public void setCondicionesAlmacenamiento(String[] lugaresNoAlmacenamiento) {
+        this.lugaresNoAlmacenamiento = lugaresNoAlmacenamiento;
     }
     //Metodos
 
@@ -32,13 +31,12 @@ public class MedicamentoAmbiente extends Medicamento{
     }
 
     protected void leerDatosAlmacenamiento(Scanner sc) {
-        System.out.println("Ingrese las condiciones de almacenamiento del medicamento: ");
-        System.out.println("Temperatura: ");
-        this.condicionesAlmacenamiento[0] = sc.nextLine();
-        System.out.println("Humedad: ");
-        this.condicionesAlmacenamiento[1] = sc.nextLine();
-        System.out.println("Luz: ");
-        this.condicionesAlmacenamiento[2] = sc.nextLine();
+        String info;
+        System.out.println("Ingrese por favor lugares donde no se debe almacenar el producto:");
+        for (int i = 0; i < 3; i++) {
+            info = cambiarVariableString(sc, "el lugar (" + (i + 1) + "):");
+            this.lugaresNoAlmacenamiento[i] = "El producto no debe ser almacenado en " + info;
+        }
     }
     
 }

@@ -6,20 +6,19 @@ public class MedicamentoRefrigerado extends Medicamento{
     //Atributos
     private double temperaturaMinima;
     private double temperaturaMaxima;
-    private double temperaturaRecomendada;
     private double temperaturaActual;
-    private ArrayList<Double> listaDetemperaturas;
+    private ArrayList<Double> registroDeTemperaturas;
     private String[] informacionCadenaDeFrio;
+    private int durabilidadLuegoDeAbierto;
 
     //Constructores
 
-    public MedicamentoRefrigerado(){
+	public MedicamentoRefrigerado(){
         super();
         this.temperaturaMinima = 0;
         this.temperaturaMaxima = 0;
-        this.temperaturaRecomendada = 0;
         this.temperaturaActual = 0;
-        this.listaDetemperaturas = new ArrayList<Double>();
+        this.registroDeTemperaturas = new ArrayList<Double>();
         this.informacionCadenaDeFrio = new String[3];
     }
 
@@ -41,29 +40,21 @@ public class MedicamentoRefrigerado extends Medicamento{
         this.temperaturaMaxima = temperaturaMaxima;
     }
 
-    public double getTemperaturaRecomendada() {
-        return temperaturaRecomendada;
-    }
-
-    public void setTemperaturaRecomendada(double temperaturaRecomendada) {
-        this.temperaturaRecomendada = temperaturaRecomendada;
-    }
-
     public double getTemperaturaActual() {
         return temperaturaActual;
     }
 
     public void setTemperaturaActual(double temperaturaActual) {
         this.temperaturaActual = temperaturaActual;
-        listaDetemperaturas.add(temperaturaActual);
+        registroDeTemperaturas.add(temperaturaActual);
     }
 
-    public ArrayList<Double> getListaDetemperaturas() {
-        return listaDetemperaturas;
+    public ArrayList<Double> getregistroDeTemperaturas() {
+        return registroDeTemperaturas;
     }
 
-    public void setListaDetemperaturas(ArrayList<Double> listaDetemperaturas) {
-        this.listaDetemperaturas = listaDetemperaturas;
+    public void setregistroDeTemperaturas(ArrayList<Double> registroDeTemperaturas) {
+        this.registroDeTemperaturas = registroDeTemperaturas;
     }
 
     public String[] getInformacionCadenaDeFrio() {
@@ -73,6 +64,14 @@ public class MedicamentoRefrigerado extends Medicamento{
     public void setInformacionCadenaDeFrio(String[] informacionCadenaDeFrio) {
         this.informacionCadenaDeFrio = informacionCadenaDeFrio;
     }
+
+    public int getDurabilidadLuegoDeAbierto() {
+		return durabilidadLuegoDeAbierto;
+	}
+
+	public void setDurabilidadLuegoDeAbierto(int durabilidadLuegoDeAbierto) {
+		this.durabilidadLuegoDeAbierto = durabilidadLuegoDeAbierto;
+	}
     //Metodos
 
     public void leerDatos(){
@@ -82,14 +81,30 @@ public class MedicamentoRefrigerado extends Medicamento{
     }
 
     protected void leerRestante(Scanner sc){
-        System.out.println("Ingrese la temperatura minima: ");
-        this.temperaturaMinima = sc.nextDouble();
-        System.out.println("Ingrese la temperatura maxima: ");
-        this.temperaturaMaxima = sc.nextDouble();
-        System.out.println("Ingrese la temperatura recomendada: ");
-        this.temperaturaRecomendada = sc.nextDouble();
-        System.out.println("Ingrese la temperatura actual: ");
-        this.temperaturaActual = sc.nextDouble();
+        String info;
+        do{
+            this.temperaturaMinima = cambiarVariableNumero(sc, "la temperatura minima");
+            do{
+                this.temperaturaMaxima = cambiarVariableNumero(sc, "la temperatura maxima");
+                if(this.temperaturaMaxima < this.temperaturaMinima)
+                    System.out.println("La temperatura maxima debe ser mayor a la minima");
+            }while(this.temperaturaMaxima < this.temperaturaMinima);
+            if(this.temperaturaMaxima>15||this.temperaturaMinima<-274)
+                System.out.println("La temperatura establecida no corresponde a un medicamento refrigerado \n La temperatura de refrigeracion esta por debajo de los 15 grados (recordar que el cero absoluto es -274 grados)");
+        }while(this.temperaturaMaxima>15||this.temperaturaMinima<-274);
+        info = cambiarVariableString(sc, "donde se almacena especificamente el producto");
+        this.informacionCadenaDeFrio[0] = "el producto debe ser almacenado en" + info ;
+        info = cambiarVariableString(sc, "exposicion a la luz (baja, media, alta)");
+        this.informacionCadenaDeFrio[1] = "el producto debe tener una" + info + "exposicion a la luz";
+        info = cambiarVariableString(sc, "exposicion a la humedad (baja, media, alta)");
+        this.informacionCadenaDeFrio[2] = "el producto debe tener una" + info + "exposicion a la humedad";
+        info = cambiarVariableString(sc, "metodo de transportacion");
+        this.informacionCadenaDeFrio[3] = "el producto debe ser transportado por" + info;
+        do{
+            this.durabilidadLuegoDeAbierto= (int)cambiarVariableNumero(sc, "el tiempo de duracion luego de abierto (en semanas)");
+            if(this.durabilidadLuegoDeAbierto<0||this.durabilidadLuegoDeAbierto>104)
+                System.out.println("Por favor coloque un tiempo de duracion razonable, no mayor a 104 semanas (2 años) ni menor a 0");
+        }while(this.durabilidadLuegoDeAbierto<0||this.durabilidadLuegoDeAbierto>104);
     }
 
     public void precioAPagarFinal(Scanner sc){

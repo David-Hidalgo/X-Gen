@@ -120,22 +120,22 @@ public abstract class Medicamento{
     protected void leerDatosBasico() {
         Scanner sc = new Scanner(System.in);
         this.nombreMedicamento=cambiarVariableString(sc, "nombre del Medicamento");
-        this.costeProduccion=(int)cambiarVariableNumero(sc, "coste de producción del medicamento");
-        this.precio=(int)cambiarVariableNumero(sc, "precio de venta del medicamento");
+        this.costeProduccion=(int)cambiarVariableNumero(sc, "el coste de producción del medicamento");
+        this.precio=(int)cambiarVariableNumero(sc, "el precio de venta del medicamento");
         do {
-            this.codigoMedicamento=(int)cambiarVariableNumero(sc, "codigo del medicamento");
+            this.codigoMedicamento=(int)cambiarVariableNumero(sc, "el codigo del medicamento");
             if (this.codigoMedicamento<1000000 || this.codigoMedicamento>999999999) {
                 System.out.println("Error, el codigo debe ser de 7 a 9 digitos");
             }
         } while (this.codigoMedicamento<1000000 || this.codigoMedicamento>999999999);
-        this.numeroLote=(int)cambiarVariableNumero(sc, "numero de lote del medicamento");
-        this.existencia=(int)(cambiarVariableNumero(sc, "numero de unidades existencia del medicamento"));
+        this.numeroLote=(int)cambiarVariableNumero(sc, "el numero de lote del medicamento");
+        this.existencia=(int)(cambiarVariableNumero(sc, "el numero de unidades existencia del medicamento"));
         do {
-            this.unidadesVendidas=(int)cambiarVariableNumero(sc, "numero de unidades vendidas del medicamento");
+            this.unidadesVendidas=(int)cambiarVariableNumero(sc, "el numero de unidades vendidas del medicamento");
             if (this.existencia<this.unidadesVendidas) {
                 System.out.println("Error, las unidades vendidas no pueden ser mayores a las existentes");
             }
-        } while (this.existencia>this.unidadesVendidas);
+        } while (this.existencia<this.unidadesVendidas);
         do{
             this.cambiarFecha(sc);
             if (this.caducidad.compareTo(new GregorianCalendar())<0) {
@@ -147,11 +147,11 @@ public abstract class Medicamento{
 
     protected void modificarLote(){
     Scanner sc = new Scanner(System.in);
-    this.numeroLote=(int)cambiarVariableNumero(sc, "numero de lote del medicamento");
+    this.numeroLote=(int)cambiarVariableNumero(sc, "el numero de lote del medicamento");
     }
 
     protected void cambiarFecha(Scanner sc) {
-        int año = (int)cambiarVariableNumero(sc, "año de caducidad del medicamento");
+        int año = (int)cambiarVariableNumero(sc, "el año de caducidad del medicamento");
         int mes = (int)cambiarFecha(sc, "mes de caducidad del medicamento");
         this.caducidad.clear();
         this.caducidad.set(año, mes-1, 1);
@@ -220,7 +220,7 @@ public abstract class Medicamento{
         String opcion;
         boolean bandera;
         do {
-            System.out.printf("Ingrese el %s \n", cosa);
+            System.out.printf("Ingrese %s \n", cosa);
             opcion = sc.nextLine();
             if (!Validaciones.validarNumero(opcion)) {
                 System.out.println("Error escoja un numero");
@@ -399,17 +399,17 @@ public abstract class Medicamento{
                     break;
                 case 2:
                     do {
-                        this.codigoMedicamento=(int)cambiarVariableNumero(sc, "codigo del medicamento");
+                        this.codigoMedicamento=(int)cambiarVariableNumero(sc, "el codigo del medicamento");
                         if (this.codigoMedicamento<1000000 || this.codigoMedicamento>999999999) {
                             System.out.println("Error, el codigo debe ser de 7 a 9 digitos");
                         }
                     } while (this.codigoMedicamento<1000000 || this.codigoMedicamento>999999999);
                 break;
                 case 3:
-                    this.numeroLote=(int)cambiarVariableNumero(sc, "numero de lote del medicamento");
+                    this.numeroLote=(int)cambiarVariableNumero(sc, "el numero de lote del medicamento");
                 break;
                 case 4:
-                    this.costeProduccion=(int)cambiarVariableNumero(sc, "coste de producción del medicamento");
+                    this.costeProduccion=(int)cambiarVariableNumero(sc, "el coste de producción del medicamento");
                     break;
                 case 5:
                     do{
@@ -420,11 +420,11 @@ public abstract class Medicamento{
                     }while(this.caducidad.compareTo(new GregorianCalendar())<0);
                     break;
                 case 6:
-                    this.existencia=(int)(cambiarVariableNumero(sc, "numero de unidades existencia del medicamento"));
+                    this.existencia=(int)(cambiarVariableNumero(sc, "el numero de unidades existencia del medicamento"));
                     break;
                 case 7:
                     do {
-                        this.unidadesVendidas=(int)cambiarVariableNumero(sc, "numero de unidades vendidas del medicamento");
+                        this.unidadesVendidas=(int)cambiarVariableNumero(sc, "el numero de unidades vendidas del medicamento");
                         if (this.existencia<this.unidadesVendidas) {
                             System.out.println("Error, las unidades vendidas no pueden ser mayores a las existentes");
                         }

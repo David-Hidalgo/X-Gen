@@ -35,12 +35,12 @@ public abstract class Medicamento{
         this.vigencia = 0;
     }
 
-    public Medicamento(String nombre, int codigo, double coste, GregorianCalendar caducidad, int porcentaje, int existencia, int unidadesVendidas, int numeroLote, int vigencia) {
+    public Medicamento(String nombre, int codigo, double coste, GregorianCalendar caducidad, double porcentaje, int existencia, int unidadesVendidas, int numeroLote, int vigencia) {
         this.nombreMedicamento = nombre;
         this.codigoMedicamento = codigo;
         this.costeProduccion = coste;
         this.caducidad = caducidad;
-        this.precio = coste * (porcentaje/100);
+        this.precio = coste *(1 +(porcentaje/100));
         this.existencia = existencia;
         this.unidadesVendidas = unidadesVendidas;
         this.numeroLote = numeroLote;

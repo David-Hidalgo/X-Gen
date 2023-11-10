@@ -74,7 +74,7 @@ public class App {
                 System.out.println("3. comprar medicamentos.");
                 System.out.println("0. Salir");
                 do {
-                    System.out.println("Ingrese un número entre 0 y 4");
+                    System.out.println("Ingrese un número entre 0 y 3");
                     opcion = in.nextLine();
                 } while (!Validaciones.validarNumero(opcion));
                 numeroOpcion = Integer.parseInt(opcion);

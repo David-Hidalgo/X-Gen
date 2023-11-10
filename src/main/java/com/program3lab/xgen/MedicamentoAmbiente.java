@@ -10,7 +10,7 @@ public class MedicamentoAmbiente extends Medicamento{
         super();
         this.lugaresNoAlmacenamiento = new String[3];
     }
-    public MedicamentoAmbiente(String nombre, int codigo, double coste, GregorianCalendar caducidad,int porcentaje, int existencia, int unidadesVendidas, int numeroLote, int vigencia, String lugaresNoAlmacenamiento1, String lugaresNoAlmacenamiento2, String lugaresNoAlmacenamiento3){
+    public MedicamentoAmbiente(String nombre, int codigo, double coste, GregorianCalendar caducidad,double porcentaje, int existencia, int unidadesVendidas, int numeroLote, int vigencia, String lugaresNoAlmacenamiento1, String lugaresNoAlmacenamiento2, String lugaresNoAlmacenamiento3){
         super(nombre, codigo, coste, caducidad, porcentaje, existencia, unidadesVendidas, numeroLote, vigencia);
         this.lugaresNoAlmacenamiento = new String[3];
         this.lugaresNoAlmacenamiento[0] = lugaresNoAlmacenamiento1;

@@ -23,7 +23,7 @@ public class MedicamentoRefrigerado extends Medicamento{
         this.durabilidadLuegoDeAbierto = 0;
     }
 
-    public MedicamentoRefrigerado(String nombre, int codigo, double coste, GregorianCalendar caducidad,int porcentaje, int existencia, int unidadesVendidas, int numeroLote, int vigencia, double temperaturaMinima, double temperaturaMaxima, String almacenamiento, String expoLuz, String expoHumedad, String transporte, int durabilidadLuegoDeAbierto){
+    public MedicamentoRefrigerado(String nombre, int codigo, double coste, GregorianCalendar caducidad,double porcentaje, int existencia, int unidadesVendidas, int numeroLote, int vigencia, double temperaturaMinima, double temperaturaMaxima, String almacenamiento, String expoLuz, String expoHumedad, String transporte, int durabilidadLuegoDeAbierto){
         super(nombre, codigo, coste, caducidad, porcentaje, existencia, unidadesVendidas, numeroLote, vigencia);
         this.setPrecio(this.getPrecio()*1.25);
         this.temperaturaMinima = temperaturaMinima;

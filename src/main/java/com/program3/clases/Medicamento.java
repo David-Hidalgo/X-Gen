@@ -1,4 +1,4 @@
-package com.program3lab.xgen;
+package com.program3.clases;
 
 import java.util.GregorianCalendar;
 import java.util.Scanner;
@@ -146,7 +146,7 @@ public abstract class Medicamento{
         this.vigencia=(int)cambiarVariableNumero(sc, mensajeVigencia);
     }
 
-    protected void modificarLote(){
+    public void modificarLote(){
     Scanner sc = new Scanner(System.in);
     this.numeroLote=(int)cambiarVariableNumero(sc, "el numero de lote del medicamento");
     }

@@ -1,4 +1,4 @@
-package com.program3lab.xgen;
+package com.program3.clases;
 
 public class Validaciones {
     /**función que devuelve verdadero o falso si un String es un número entero o no

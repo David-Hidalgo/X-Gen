@@ -1,10 +1,11 @@
-package com.program3lab.xgen;
+package com.program3;
 
+import com.program3.clases.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
-public class App {
+public class AppCLI{
     public static void main(String[] args) throws Exception {
         ArrayList<Medicamento> listaMedicamentos = new ArrayList<Medicamento>();        
         Scanner in = new Scanner(System.in);
@@ -244,7 +245,7 @@ public class App {
                                 System.out.println("Ingrese un numero valido");
                         } while (Integer.parseInt(opcion)+1 > listaMedicamentos.size());
                         numeroOpcion = Integer.parseInt(opcion);
-                        listaMedicamentos.get(numeroOpcion).precioAPagar(in);
+                        listaMedicamentos.get(numeroOpcion).precioAPagarFinal(in);
                         condition = continuar(in, "¿Desea modificar el precio de otro Medicamento?");
                     } while (condition);                
                     System.out.println("Presione enter para continuar");

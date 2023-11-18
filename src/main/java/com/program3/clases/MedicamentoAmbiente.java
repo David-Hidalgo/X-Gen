@@ -1,4 +1,4 @@
-package com.program3lab.xgen;
+package com.program3.clases;
 
 import java.util.Scanner;
 import java.util.GregorianCalendar;

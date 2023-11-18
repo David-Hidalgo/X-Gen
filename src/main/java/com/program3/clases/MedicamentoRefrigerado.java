@@ -1,7 +1,9 @@
-package com.program3lab.xgen;
+package com.program3.clases;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+
 public class MedicamentoRefrigerado extends Medicamento{
     //Atributos
     private double temperaturaMinima;

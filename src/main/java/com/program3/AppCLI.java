@@ -13,9 +13,9 @@ public class AppCLI{
         GregorianCalendar fecha1 = new GregorianCalendar(2030, 10, 10);
         GregorianCalendar fecha2 = new GregorianCalendar(2023, 10, 10);
         
-        MedicamentoRefrigerado fuerte = new MedicamentoRefrigerado("Paracetamol", 12345678, 1000, fecha1, 20, 1000, 0, 1, 1, 0, 10, " nevera", "baja", "baja", "en camion refrigerado", 4);
-        MedicamentoAmbiente basico = new MedicamentoAmbiente("Ibuprofeno", 87654321, 1000, fecha1, 25, 50, 1, 1, 1, "En el motor de un carro", "En lugares humedos", "Cerca de niños");        
-        MedicamentoRefrigerado frio = new MedicamentoRefrigerado("Acetaminofen", 123453432, 1000, fecha2, 21, 1000, 0, 1, 1, 0, 10, " nevera", "baja", "baja", "en camion refrigerado", 4);
+        MedicamentoRefrigerado fuerte = new MedicamentoRefrigerado("Paracetamol", 12345678, 1000, fecha1, 20, 1000, 0, 1, 1, 0, 10, " nevera", "baja", "baja", "en camión refrigerado", 4);
+        MedicamentoAmbiente basico = new MedicamentoAmbiente("Ibuprofeno", 87654321, 1000, fecha1, 25, 50, 1, 1, 1, "En el motor de un carro", "En lugares húmedos", "Cerca de niños");
+        MedicamentoRefrigerado frio = new MedicamentoRefrigerado("Acetaminofen", 123453432, 1000, fecha2, 21, 1000, 0, 1, 1, 0, 10, " nevera", "baja", "baja", "en camión refrigerado", 4);
 
         listaMedicamentos.add(fuerte);
         listaMedicamentos.add(basico);
@@ -71,7 +71,7 @@ public class AppCLI{
                 System.out.println("Bienvenido al programa Medicamentos");
                 System.out.println("¿Qué desea hacer?");
                 System.out.println("1. mostrar todos los medicamentos.");
-                System.out.println("2. Seleccionar un medicamento para ver su informacion.");
+                System.out.println("2. Seleccionar un medicamento para ver su información.");
                 System.out.println("3. comprar medicamentos.");
                 System.out.println("0. Salir");
                 do {
@@ -88,7 +88,7 @@ public class AppCLI{
                         break;
 
                     case 2:
-                        imprimirInformcaiónString(listaMedicamentos, in);
+                        imprimirInformaciónString(listaMedicamentos, in);
                         break;
 
                     case 3:
@@ -126,14 +126,14 @@ public class AppCLI{
                 do {
                     continuar = in.nextLine();
                     if(!Validaciones.validarNumero(continuar))
-                    System.out.println("Ingrese un numero por favor");
+                        System.out.println("Ingrese un numero por favor");
                 } while (!Validaciones.validarNumero(continuar));
                 int unidades = Integer.parseInt(continuar);
                 System.out.println("El precio total a pagar es de "+listaMedicamentos.get(contador).getPrecio()*unidades);
                 bContinuar=continuar(in, "¿Quiere comprar este medicamento?");
                 if (bContinuar) {
                     listaMedicamentos.get(contador).setUnidadesVendidas(listaMedicamentos.get(contador).getUnidadesVendidas()+unidades);
-                    System.out.println("Medicamento comprado con exito");
+                    System.out.println("Medicamento comprado con éxito");
                 }else{
                     System.out.println("Medicamento no comprado");
                 }
@@ -229,7 +229,7 @@ public class AppCLI{
                     } while (condition);
                     break;
                 case 2:
-                    imprimirInformcaiónString(listaMedicamentos, in);
+                    imprimirInformaciónString(listaMedicamentos, in);
                 break;
                 case 3:
                     do {
@@ -296,7 +296,7 @@ public class AppCLI{
                             contador2++;
                     }
                     if (contador2==0) {
-                        System.out.println("el numero ingresado no es un lote valido, debe coincidir con el numero de lote de algun medicamento");
+                        System.out.println("el numero ingresado no es un lote valido, debe coincidir con el numero de lote de algún medicamento");
                     }else{
                         System.out.println("Se retiraron "+contador2+" lotes");
                     }
@@ -353,7 +353,7 @@ public class AppCLI{
             bContinuar=continuar(in, continuar);
             if (bContinuar) {
                 listaMedicamentos.remove(contador);
-                System.out.println("Medicamento eliminado con exito");
+                System.out.println("Medicamento eliminado con éxito");
             }else{
                 System.out.println("Medicamento no eliminado");
             }
@@ -401,7 +401,7 @@ public class AppCLI{
         return bContinuar;
     }
 
-    private static void imprimirInformcaiónString(ArrayList<Medicamento> listaMedicamentos, Scanner in) {
+    private static void imprimirInformaciónString(ArrayList<Medicamento> listaMedicamentos, Scanner in) {
         if (listaMedicamentos.isEmpty()) {
             System.out.println("No hay medicamentos en el inventario");
             System.out.println("Presione enter para continuar");
@@ -414,7 +414,7 @@ public class AppCLI{
             System.out.flush();
             contador=listaMedicamentos.indexOf(seleccionarMedicamento(listaMedicamentos, in));
             listaMedicamentos.get(contador).imprimirEspecifico();
-            condition = continuar(in, "¿Desea ver la informacion de otro Medicamento?");
+            condition = continuar(in, "¿Desea ver la información de otro Medicamento?");
         } while (condition);
         System.out.println("Presione enter para continuar");
         in.nextLine();

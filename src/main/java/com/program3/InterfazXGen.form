@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.program3.InterfazXGen">
+  <tabbedpane id="4a442" binding="tabbedPane1" default-binding="true">
+    <constraints>
+      <xy x="20" y="20" width="682" height="535"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="c8cac" binding="border" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints>
+          <tabbedpane title="Bordername">
+            <tooltip value="no se"/>
+          </tabbedpane>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="7d84b" layout-manager="GridBagLayout">
+            <constraints border-constraint="East"/>
+            <properties>
+              <autoscrolls value="false"/>
+              <background color="-6287081"/>
+              <preferredSize width="100" height="0"/>
+              <visible value="true"/>
+            </properties>
+            <border type="none"/>
+            <children/>
+          </grid>
+          <grid id="e7220" layout-manager="GridBagLayout">
+            <constraints border-constraint="North"/>
+            <properties>
+              <background color="-13620732"/>
+              <preferredSize width="0" height="100"/>
+            </properties>
+            <border type="none"/>
+            <children/>
+          </grid>
+          <grid id="c5b62" layout-manager="GridBagLayout">
+            <constraints border-constraint="South"/>
+            <properties>
+              <background color="-11397249"/>
+              <preferredSize width="0" height="100"/>
+            </properties>
+            <border type="none"/>
+            <children/>
+          </grid>
+          <grid id="d122e" binding="pepe" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints border-constraint="West"/>
+            <properties>
+              <background color="-10450911"/>
+              <focusable value="false"/>
+              <name value="dsadsa"/>
+              <preferredSize width="100" height="0"/>
+              <visible value="true"/>
+            </properties>
+            <border type="none" title=""/>
+            <children/>
+          </grid>
+          <scrollpane id="b4862">
+            <constraints border-constraint="Center"/>
+            <properties/>
+            <border type="none"/>
+            <children/>
+          </scrollpane>
+        </children>
+      </grid>
+      <grid id="92c54" binding="segundoPanel" custom-create="true" layout-manager="GridBagLayout">
+        <constraints>
+          <tabbedpane title="Untitled"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children/>
+      </grid>
+    </children>
+  </tabbedpane>
+</form>

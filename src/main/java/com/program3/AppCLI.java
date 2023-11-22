@@ -21,6 +21,8 @@ public class AppCLI{
         listaMedicamentos.add(basico);
         listaMedicamentos.add(frio);
 
+
+
         do {
             System.out.print("\033[H\033[2J");
             System.out.flush();

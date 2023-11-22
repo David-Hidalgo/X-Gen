@@ -9,7 +9,7 @@
     <children>
       <grid id="c8cac" binding="border" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints>
-          <tabbedpane title="Bordername">
+          <tabbedpane title="ghj ytljkkij   ">
             <tooltip value="no se"/>
           </tabbedpane>
         </constraints>
@@ -61,7 +61,14 @@
             <constraints border-constraint="Center"/>
             <properties/>
             <border type="none"/>
-            <children/>
+            <children>
+              <component id="120a5" class="javax.swing.JList" binding="list1" default-binding="true">
+                <constraints/>
+                <properties>
+                  <model/>
+                </properties>
+              </component>
+            </children>
           </scrollpane>
         </children>
       </grid>

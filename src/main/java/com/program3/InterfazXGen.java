@@ -8,4 +8,5 @@ public class InterfazXGen {
     private JPanel border;
     private JPanel pepe;
     private JPanel segundoPanel;
+    private JList list1;
 }

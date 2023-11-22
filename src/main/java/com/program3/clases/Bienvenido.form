@@ -75,13 +75,13 @@
           <component id="5ca4d" class="javax.swing.JLabel">
             <constraints/>
             <properties>
-              <text value="Label"/>
+              <text value="Comprador"/>
             </properties>
           </component>
           <component id="bca04" class="javax.swing.JLabel">
             <constraints/>
             <properties>
-              <text value="Label"/>
+              <text value="Administrador"/>
             </properties>
           </component>
         </children>

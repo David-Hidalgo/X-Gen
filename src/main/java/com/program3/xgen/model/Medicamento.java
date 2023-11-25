@@ -11,6 +11,7 @@ public abstract class Medicamento{
     private double costeProduccion;
     private GregorianCalendar caducidad;
     private double precio;
+    private double porcentajeDeGanancia;
     private int existencia;
     private int unidadesVendidas;
     private int numeroLote;
@@ -40,7 +41,8 @@ public abstract class Medicamento{
         this.codigoMedicamento = codigo;
         this.costeProduccion = coste;
         this.caducidad = caducidad;
-        this.precio = coste *(1 +(porcentaje/100));
+        this.porcentajeDeGanancia = porcentaje;
+        this.precio = coste *(1 +(this.porcentajeDeGanancia/100));
         this.existencia = existencia;
         this.unidadesVendidas = unidadesVendidas;
         this.numeroLote = numeroLote;
@@ -112,6 +114,13 @@ public abstract class Medicamento{
             return vigencia;
         }
 
+        public double getPorcentajeDeGanancia() {
+            return porcentajeDeGanancia;
+        }
+
+        public void setPorcentajeDeGanancia(double porcentajeDeGanancia) {
+            this.porcentajeDeGanancia = porcentajeDeGanancia;
+        }
     //Métodos
 
 

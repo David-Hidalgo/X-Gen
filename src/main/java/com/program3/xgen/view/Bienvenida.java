@@ -183,20 +183,4 @@ public class Bienvenida extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
-
-    public JButton getBotonAdmin() {
-        return BotonAdmin;
-    }
-
-    public void setBotonAdmin(JButton BotonAdmin) {
-        this.BotonAdmin = BotonAdmin;
-    }
-
-    public JButton getBotonCLiente() {
-        return BotonCLiente;
-    }
-
-    public void setBotonCLiente(JButton BotonCLiente) {
-        this.BotonCLiente = BotonCLiente;
-    }
 }

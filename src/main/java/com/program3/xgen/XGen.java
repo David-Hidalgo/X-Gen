@@ -34,13 +34,10 @@ public class XGen{
         nombreCliente = aNombreCliente;
     }
     private Bienvenida interfazBienvenida;
+    private ArrayList<Medicamento> listaMedicamentos = new ArrayList<>();
 
-    private ArrayList<Medicamento> listaMedicamentos=new ArrayList();
-
-    
-    
-    public static void llenarUsuario(String dato){
-        nombreCliente=dato;
+    public static void llenarUsuario(String dato) {
+        nombreCliente = dato;
         System.out.print(dato);
     }
     
@@ -79,10 +76,24 @@ public class XGen{
         return data;
     }
     
-    public void editarMedicamento(int indice, XGen controlador){
-        Object medicamento = controlador.getListaMedicamentos().get(indice);
-        PanelMedicamento panelEditar = new PanelMedicamento(controlador, medicamento);
+    public void editarMedicamento(int indice, javax.swing.JTabbedPane g){
+        MedicamentoAmbiente medicamentoA;
+        Object medicamento;
+        PanelMedicamento panelEditar;
+        medicamento = this.getListaMedicamentos().get(indice);
+        if(this.getListaMedicamentos().get(indice) instanceof MedicamentoRefrigerado medicamentoR){
+            panelEditar = new PanelMedicamento<MedicamentoRefrigerado>(this, medicamentoR);
+        }else{
+            medicamentoA=(MedicamentoAmbiente)this.getListaMedicamentos().get(indice);
+            panelEditar = new PanelMedicamento<MedicamentoAmbiente>(this, medicamentoA);
+        }
+        g.addTab("editar: "+medicamento.toString(), panelEditar);
+        g.setSelectedIndex(g.indexOfComponent(panelEditar));
+        
+    }
     
+    public <t extends Medicamento> void actualizarMedicamento(t medicamento, javax.swing.JFormattedTextField nombre, javax.swing.JFormattedTextField codigo, javax.swing.JFormattedTextField nLote, javax.swing.JFormattedTextField coste){
+        
     }
 
     public static void main(String[] args) {

@@ -6,8 +6,11 @@ package com.program3.xgen.view;
 import javax.swing.table.*;
 import com.program3.xgen.XGen;
 import com.program3.xgen.model.Medicamento;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -53,7 +56,7 @@ public class PanelAdministrador extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonEliminar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
 
         jPanel4.setLayout(new java.awt.BorderLayout());
@@ -126,13 +129,13 @@ public class PanelAdministrador extends javax.swing.JFrame {
         });
         jPanel3.add(jButton2);
 
-        jButton3.setText("Eliminar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButtonEliminarActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton3);
+        jPanel3.add(jButtonEliminar);
 
         jPanel2.add(jPanel3, java.awt.BorderLayout.SOUTH);
 
@@ -156,13 +159,17 @@ public class PanelAdministrador extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        int a = jTable1.getSelectedRow();
+        controlador.getListaMedicamentos().remove(a);
+        jTable1.repaint();
+
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         int rowActual=jTable1.getSelectedRow();
-        controlador.editarMedicamento(rowActual, this.jTabbedPane1);
+        controlador.editarMedicamento(rowActual, this.jTabbedPane1, this);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -206,7 +213,7 @@ public class PanelAdministrador extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonEliminar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

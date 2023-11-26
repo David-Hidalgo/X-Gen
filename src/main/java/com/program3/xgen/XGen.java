@@ -76,7 +76,7 @@ public class XGen{
         return data;
     }
     
-    public void editarMedicamento(int indice, javax.swing.JTabbedPane g){
+    public void editarMedicamento(int indice, javax.swing.JTabbedPane g, javax.swing.JFrame frame){
         MedicamentoAmbiente medicamentoA;
         Object medicamento;
         PanelMedicamento panelEditar;
@@ -89,7 +89,8 @@ public class XGen{
         }
         g.addTab("editar: "+medicamento.toString(), panelEditar);
         g.setSelectedIndex(g.indexOfComponent(panelEditar));
-        
+        frame.pack();
+        frame.setLocationRelativeTo(null);
     }
     
     public <t extends Medicamento> void actualizarMedicamento(t medicamento, javax.swing.JFormattedTextField nombre, javax.swing.JFormattedTextField codigo, javax.swing.JFormattedTextField nLote, javax.swing.JFormattedTextField coste){

@@ -8,6 +8,7 @@ import com.program3.xgen.view.*;
 import com.program3.xgen.model.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import javax.swing.table.*;
 
 /**
  *
@@ -64,6 +65,18 @@ public class XGen{
         listaMedicamentos = nueva;
     }
     
+    public <t extends Medicamento >void añadirMedicamentoCliente(javax.swing.JTable table, t medicamento){
+        Object[] nuevo={medicamento, medicamento.getPrecio(), medicamento.getExistencia(), 0, null};
+        DefaultTableModel modelName = (DefaultTableModel) table.getModel();
+        modelName.addRow(nuevo);
+    }
+    
+    public void obtenerListaCliente(javax.swing.JTable table){
+        for (Medicamento medicamento: listaMedicamentos){
+            añadirMedicamentoCliente(table, medicamento);
+        }
+    }
+    
     public Object[][] obtenerLista(){
         int contador=0;
         int m=4;
@@ -92,7 +105,11 @@ public class XGen{
         frame.pack();
         frame.setLocationRelativeTo(null);
     }
-    
+    public void crearPanelUsuario(Bienvenida bienvenida){
+        bienvenida.dispose();
+        PanelCliente pc= new PanelCliente(this);
+        pc.setVisible(true);
+    }
     public <t extends Medicamento> void actualizarMedicamento(t medicamento, javax.swing.JFormattedTextField nombre, javax.swing.JFormattedTextField codigo, javax.swing.JFormattedTextField nLote, javax.swing.JFormattedTextField coste){
         
     }

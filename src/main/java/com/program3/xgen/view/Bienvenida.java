@@ -124,6 +124,8 @@ public class Bienvenida extends javax.swing.JFrame {
     private void BotonCLienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCLienteActionPerformed
         String nombre=JOptionPane.showInputDialog(jPanel1, "ingrese su nombre", "Inicio de Sesión", JOptionPane.INFORMATION_MESSAGE);
         XGen.llenarUsuario(nombre);
+
+        controlador.crearPanelUsuario(this);
         // TODO add your handling code here:
     }//GEN-LAST:event_BotonCLienteActionPerformed
 

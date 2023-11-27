@@ -37,11 +37,14 @@ public class PanelCliente extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,27 +55,6 @@ public class PanelCliente extends javax.swing.JFrame {
         jLabel1.setToolTipText("");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel1.add(jLabel1, java.awt.BorderLayout.PAGE_START);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Nombre", "Precio", "Existencia", "comprados", "Opciones"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getModel().getRowCount();
-
-        jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         jButton1.setText("Cancelar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -90,24 +72,69 @@ public class PanelCliente extends javax.swing.JFrame {
         });
         jPanel2.add(jButton2);
 
+        jButton3.setText("añadir");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton3);
+
+        jButton4.setText("quitar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton4);
+
         jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_END);
+
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Precio", "Existencia", "comprados"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+        jTable1.getModel().getRowCount();
+
+        jPanel3.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(jPanel3, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        javax.swing.JOptionPane.showOptionDialog(this.jPanel1, "el costo total es", "Dinero a pagar", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.INFORMATION_MESSAGE , new javax.swing.ImageIcon(getClass().getResource("/icons/rating_3410511.png")), new String[]{"Comprar", "Cancelar"}, EXIT_ON_CLOSE);
+          double  dinero=0;
+        for (com.program3.xgen.model.Medicamento medicamento : controlador.getCarrito()) {
+        dinero=dinero+ medicamento.getPrecio();
+        }
+        javax.swing.JOptionPane.showOptionDialog(this.jPanel1, "el costo total es "+ dinero, "Dinero a pagar", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.INFORMATION_MESSAGE , new javax.swing.ImageIcon(getClass().getResource("/icons/rating_3410511.png")), new String[]{"Comprar", "Cancelar"}, EXIT_ON_CLOSE);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -117,6 +144,33 @@ public class PanelCliente extends javax.swing.JFrame {
         
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        int row=jTable1.getSelectedRow();
+        int numero = (int)jTable1.getValueAt(row, 3);
+        com.program3.xgen.model.Medicamento medicamento=(com.program3.xgen.model.Medicamento)jTable1.getValueAt(row, 0);
+        if (medicamento.getExistencia()>medicamento.getUnidadesVendidas()){
+            jTable1.setValueAt(++numero, row, 3);
+            int venta = medicamento.getUnidadesVendidas();
+            medicamento.setUnidadesVendidas(++venta);
+            controlador.getCarrito().add(medicamento);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        int row=jTable1.getSelectedRow();
+        int numero = (int)jTable1.getValueAt(row, 3);
+               com.program3.xgen.model.Medicamento medicamento=(com.program3.xgen.model.Medicamento)jTable1.getValueAt(row, 0);
+        if (numero>0){
+            jTable1.setValueAt(--numero, row, 3);
+            int venta = medicamento.getUnidadesVendidas();
+            medicamento.setUnidadesVendidas(--venta);
+            controlador.getCarrito().remove(medicamento);
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -176,9 +230,12 @@ public class PanelCliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

@@ -8,6 +8,9 @@ import com.program3.xgen.view.*;
 import com.program3.xgen.model.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+
+import javax.swing.ComponentInputMap;
+import javax.swing.JOptionPane;
 import javax.swing.table.*;
 
 /**
@@ -18,6 +21,11 @@ public class XGen{
 
     private static String contraseña="amigo";
     private static String nombreCliente;
+    private Bienvenida interfazBienvenida;
+    private ArrayList<Medicamento> listaMedicamentos = new ArrayList<>();
+    private PanelAdministrador panelAdministrador;
+    private ArrayList<Medicamento> carrito =new ArrayList<>();
+    
 
     public static String getContraseña() {
         return contraseña;
@@ -34,8 +42,6 @@ public class XGen{
     public static void setNombreCliente(String aNombreCliente) {
         nombreCliente = aNombreCliente;
     }
-    private Bienvenida interfazBienvenida;
-    private ArrayList<Medicamento> listaMedicamentos = new ArrayList<>();
 
     public static void llenarUsuario(String dato) {
         nombreCliente = dato;
@@ -66,16 +72,18 @@ public class XGen{
     }
     
     public <t extends Medicamento >void añadirMedicamentoCliente(javax.swing.JTable table, t medicamento){
-        Object[] nuevo={medicamento, medicamento.getPrecio(), medicamento.getExistencia(), 0, null};
+        Object[] nuevo={medicamento, medicamento.getPrecio(), medicamento.getExistencia(), 0};
         DefaultTableModel modelName = (DefaultTableModel) table.getModel();
         modelName.addRow(nuevo);
     }
+    
     
     public void cerrarPanelEditar(javax.swing.JTabbedPane jTabbedPane, javax.swing.JPanel jPanel){
         int a= jTabbedPane.indexOfComponent(jPanel);
         System.out.println(a);
         System.out.println();
-        jTabbedPane.removeTabAt(a);   
+        jTabbedPane.removeTabAt(a);
+        jTabbedPane.setSelectedIndex(0);
     }
     
     public void obtenerListaCliente(javax.swing.JTable table){
@@ -89,13 +97,28 @@ public class XGen{
         int m=4;
         Object[][] data=new Object[listaMedicamentos.size()][m];
         for (Medicamento medicamento : listaMedicamentos) {
-            Object[] nuevo={medicamento.getNombreMedicamento(), medicamento.getCodigoMedicamento(), medicamento.getCosteProduccion(), medicamento.getExistencia()};
+            Object[] nuevo={medicamento.getNombreMedicamento(), medicamento.getCodigoMedicamento(), medicamento.getPrecio(), medicamento.getExistencia()};
             data[contador]=nuevo;
             contador++;
         }
         return data;
     }
-    
+        public void MostrarMedicamento(int indice, javax.swing.JTabbedPane g, javax.swing.JFrame frame){
+        MedicamentoAmbiente medicamentoA;
+        Object medicamento;
+        PanelMedicamentoMostrar panelEditar;
+        medicamento = this.getListaMedicamentos().get(indice);
+        if(this.getListaMedicamentos().get(indice) instanceof MedicamentoRefrigerado medicamentoR){
+            panelEditar = new PanelMedicamentoMostrar<MedicamentoRefrigerado>(this, medicamentoR);
+        }else{
+            medicamentoA=(MedicamentoAmbiente)this.getListaMedicamentos().get(indice);
+            panelEditar = new PanelMedicamentoMostrar<MedicamentoAmbiente>(this, medicamentoA);
+        }
+        g.addTab("editar: "+medicamento.toString(), panelEditar);
+        g.setSelectedIndex(g.indexOfComponent(panelEditar));
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+    }
     public void editarMedicamento(int indice, javax.swing.JTabbedPane g, javax.swing.JFrame frame){
         MedicamentoAmbiente medicamentoA;
         Object medicamento;
@@ -117,10 +140,53 @@ public class XGen{
         PanelCliente pc= new PanelCliente(this);
         pc.setVisible(true);
     }
-    public <t extends Medicamento> void actualizarMedicamento(t medicamento, javax.swing.JFormattedTextField nombre, javax.swing.JFormattedTextField codigo, javax.swing.JFormattedTextField nLote, javax.swing.JFormattedTextField coste){
+    public void crearPanelAdministrador(){
+        PanelAdministrador pa= new PanelAdministrador(this);
+        pa.setVisible(true);
+        panelAdministrador=pa;
+    }
+    public <t extends Medicamento> void actualizarMedicamentoCrear(t medicamento, com.program3.xgen.view.PanelMedicamentoCrear panelMedicamento){
+        int indice=listaMedicamentos.indexOf(medicamento);
+        listaMedicamentos.set(indice, medicamento);
+        panelAdministrador.dispose();
+        this.crearPanelAdministrador();
+    }
+
+    public void comprar(){
         
     }
 
+    public ArrayList<Medicamento> getCarrito() {
+        return carrito;
+    }
+
+    public void setCarrito(ArrayList<Medicamento> carrito) {
+        this.carrito = carrito;
+    }
+    
+    public <t extends Medicamento> void actualizarMedicamento(t medicamento, com.program3.xgen.view.PanelMedicamento panelMedicamento){
+        int indice=listaMedicamentos.indexOf(medicamento);
+        listaMedicamentos.set(indice, medicamento);
+        panelAdministrador.dispose();
+        this.crearPanelAdministrador();
+    }
+    public void crearMedicamentoAmbiente(javax.swing.JTabbedPane g, javax.swing.JFrame frame){
+        MedicamentoAmbiente medicamento= new MedicamentoAmbiente();
+        PanelMedicamentoCrear panelCrear;
+        panelCrear = new PanelMedicamentoCrear<MedicamentoAmbiente>(this, medicamento);
+        g.insertTab("crear", null, panelCrear, "suerte", 1);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+    }
+    public void crearMedicamentoRefrigerado(javax.swing.JTabbedPane g, javax.swing.JFrame frame){
+        MedicamentoRefrigerado medicamento= new MedicamentoRefrigerado();
+        PanelMedicamentoCrear panelCrear;
+        panelCrear = new PanelMedicamentoCrear<MedicamentoRefrigerado>(this, medicamento);
+        g.insertTab("crear", null, panelCrear, "suerte", 1);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        
+    }
     public static void main(String[] args) {
         GregorianCalendar fecha1 = new GregorianCalendar(2030, 10, 10);
         GregorianCalendar fecha2 = new GregorianCalendar(2023, 10, 10);

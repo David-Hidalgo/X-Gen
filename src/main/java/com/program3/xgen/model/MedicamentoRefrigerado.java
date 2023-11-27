@@ -80,8 +80,16 @@ public class MedicamentoRefrigerado extends Medicamento{
         return informacionCadenaDeFrio;
     }
 
-    public void setInformacionCadenaDeFrio(String[] informacionCadenaDeFrio) {
+    public String getInformacionCadenaDeFrio(int index) {
+        return informacionCadenaDeFrio[index];
+    }
+
+    public void setInformacionCadenaDeFrio(String[] informacionCadenaDeFrio ) {
         this.informacionCadenaDeFrio = informacionCadenaDeFrio;
+    }
+
+    public void setInformacionCadenaDeFrio(int index,String informacionCadenaDeFrio ) {
+        this.informacionCadenaDeFrio[index] = informacionCadenaDeFrio;
     }
 
     public int getDurabilidadLuegoDeAbierto() {

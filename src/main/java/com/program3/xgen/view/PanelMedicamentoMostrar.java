@@ -14,7 +14,7 @@ import com.program3.xgen.model.Medicamento;
  * @author David
  * @param <t>
  */
-public class PanelMedicamento<t extends Medicamento> extends javax.swing.JPanel {
+public class PanelMedicamentoMostrar<t extends Medicamento> extends javax.swing.JPanel {
 
     private XGen controlador;
 
@@ -42,7 +42,7 @@ public class PanelMedicamento<t extends Medicamento> extends javax.swing.JPanel 
      * @param controlador
      * @param nuevoMedicamento
      */
-    public PanelMedicamento(XGen controlador, t nuevoMedicamento) {
+    public PanelMedicamentoMostrar(XGen controlador, t nuevoMedicamento) {
         this.controlador=controlador;
         this.medicamento = nuevoMedicamento;
         initComponents();
@@ -57,14 +57,14 @@ public class PanelMedicamento<t extends Medicamento> extends javax.swing.JPanel 
      * Creates new form NewJPanel
      * @param controlador
      */
-    public PanelMedicamento(XGen controlador) {
+    public PanelMedicamentoMostrar(XGen controlador) {
         this.controlador=controlador;
         initComponents();
     }
     /**
      * Creates new form NewJPanel
      */
-    public PanelMedicamento() {
+    public PanelMedicamentoMostrar() {
         initComponents();
     }
 
@@ -126,7 +126,6 @@ public class PanelMedicamento<t extends Medicamento> extends javax.swing.JPanel 
         jLabel11 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -553,21 +552,13 @@ public class PanelMedicamento<t extends Medicamento> extends javax.swing.JPanel 
         }
         add(jPanel3, java.awt.BorderLayout.WEST);
 
-        jButton1.setText("Cancelar");
+        jButton1.setText("Salir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         jPanel4.add(jButton1);
-
-        jButton2.setText("Guardar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jButton2);
 
         add(jPanel4, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
@@ -604,44 +595,6 @@ public class PanelMedicamento<t extends Medicamento> extends javax.swing.JPanel 
         controlador.cerrarPanelEditar((javax.swing.JTabbedPane)this.getParent(), this);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        medicamento.setNombreMedicamento(this.nombreMedicamento.getText());
-        medicamento.setCodigoMedicamento(Integer.parseInt(this.codigoMedicamento.getText()));
-        medicamento.setCosteProduccion(Double.parseDouble(this.costeMedicamento.getText()));
-        java.util.Date date = this.fechaCaducidad.getValue() instanceof java.util.Date ? (java.util.Date)this.fechaCaducidad.getValue() : new java.util.Date();
-        GregorianCalendar gregorianCalendar = new GregorianCalendar();
-        gregorianCalendar.setTime(date);
-        medicamento.setCaducidad(gregorianCalendar);     
-        medicamento.setExistencia(Integer.parseInt(this.existencia.getText()));
-        medicamento.setNumeroLote(Integer.parseInt(this.numeroDeLote.getText()));
-        medicamento.setPorcentajeDeGanancia(Double.parseDouble(porcentajeGanancia.getText()));
-        medicamento.setPrecio(medicamento.getCosteProduccion() * (medicamento.getPorcentajeDeGanancia()/100));
-        medicamento.setUnidadesVendidas(Integer.parseInt(this.unidadesVendidas.getText()));
-        medicamento.setVigencia(this.vigencia.getSelectedIndex());
-        if (medicamento instanceof com.program3.xgen.model.MedicamentoAmbiente medicamento){
-            javax.swing.JTextField jTextField;
-            for (int i = 0; i < jPanel5.getComponents().length; i++) {
-                jTextField=(javax.swing.JTextField)jPanel5.getComponents()[i];
-                medicamento.getCondicionesAlmacenamiento()[i] = jTextField.getText();
-            }
-        }else{
-            if (medicamento instanceof com.program3.xgen.model.MedicamentoRefrigerado medicamento) {
-                medicamento.setPrecio(medicamento.getPrecio() * 1.25);
-                medicamento.setTemperaturaMaxima((Double)this.temperaturaMaxima.getValue());
-                medicamento.setTemperaturaMinima((Double)this.temperaturaMinima.getValue());
-                medicamento.setInformacionCadenaDeFrio(0, this.almacenamiento.getText());
-                medicamento.setInformacionCadenaDeFrio(1, this.expoLuz.getText());
-                medicamento.setInformacionCadenaDeFrio(2, this.expoHumedad.getText());
-                medicamento.setInformacionCadenaDeFrio(3, this.transporte.getText());
-                medicamento.setDurabilidadLuegoDeAbierto(Integer.parseInt(this.durabilidadLuegoDeAbierto.getText()));
-            }
-        }
-        controlador.actualizarMedicamento(medicamento, this);
-        controlador.cerrarPanelEditar((javax.swing.JTabbedPane)this.getParent(), this);
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void nombreMedicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreMedicamentoActionPerformed
         // TODO add your handling code here:
@@ -699,7 +652,6 @@ public class PanelMedicamento<t extends Medicamento> extends javax.swing.JPanel 
     private javax.swing.JTextField expoLuz;
     private javax.swing.JSpinner fechaCaducidad;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

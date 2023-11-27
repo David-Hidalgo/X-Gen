@@ -46,11 +46,6 @@ public class PanelAdministrador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel4 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -58,36 +53,17 @@ public class PanelAdministrador extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jButtonEliminar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-
-        jPanel4.setLayout(new java.awt.BorderLayout());
-
-        jPanel5.setLayout(new javax.swing.BoxLayout(jPanel5, javax.swing.BoxLayout.LINE_AXIS));
-
-        jLabel1.setText("jLabel1");
-        jPanel5.add(jLabel1);
-
-        jLabel2.setText("jLabel2");
-        jPanel5.add(jLabel2);
-
-        jPanel4.add(jPanel5, java.awt.BorderLayout.PAGE_START);
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 594, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        jPanel4.add(jPanel6, java.awt.BorderLayout.PAGE_END);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
 
         jPanel2.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel2.setLayout(new java.awt.BorderLayout());
@@ -98,14 +74,14 @@ public class PanelAdministrador extends javax.swing.JFrame {
         int m=4;
         Object[][] data=new Object[controlador.getListaMedicamentos().size()][m];
         for (Medicamento medicamento : controlador.getListaMedicamentos()) {
-            Object[] nuevo={medicamento, medicamento.getCodigoMedicamento(), medicamento.getCosteProduccion(), medicamento.getExistencia()};
+            Object[] nuevo={medicamento, medicamento.getCodigoMedicamento(), medicamento.getPrecio(), medicamento.getExistencia()};
             data[contador]=nuevo;
             contador++;
         }
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             data,
             new String [] {
-                "Nombre", "Code", "Price", "Other"
+                "Nombre", "Code", "Precio", "Existencia"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -121,7 +97,12 @@ public class PanelAdministrador extends javax.swing.JFrame {
 
         jPanel2.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        jButton1.setText("Mostrar");
+        jButton1.setText("Crear");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton1);
 
         jButton2.setText("Editar");
@@ -131,6 +112,14 @@ public class PanelAdministrador extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jButton2);
+
+        jButton4.setText("Mostrar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton4);
 
         jButtonEliminar.setText("Eliminar");
         jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -151,9 +140,6 @@ public class PanelAdministrador extends javax.swing.JFrame {
         jPanel2.add(jPanel3, java.awt.BorderLayout.SOUTH);
 
         jTabbedPane1.addTab("Lista de Medicamentos", jPanel2);
-
-        jPanel1.setLayout(new java.awt.BorderLayout());
-        jTabbedPane1.addTab("Crear Medicamento", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -189,6 +175,27 @@ public class PanelAdministrador extends javax.swing.JFrame {
         new com.program3.xgen.view.Bienvenida(this.controlador).setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+            int a=JOptionPane.showOptionDialog(jPanel2, "Seleccione qué tipo de medicamento desea agregar", "Tipo de Medicamento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/icons/google_2702600 (Custom).png")), new String[]{"Medicamento Refrigerado","Medicamento Ambiente"}, EXIT_ON_CLOSE);
+             if (a==0){
+                 controlador.crearMedicamentoRefrigerado(jTabbedPane1, this);
+            }else if (a==1){
+                
+            
+        }         // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        int rowActual=jTable1.getSelectedRow();
+        controlador.MostrarMedicamento(rowActual, this.jTabbedPane1, this);        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -231,15 +238,10 @@ public class PanelAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButtonEliminar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;

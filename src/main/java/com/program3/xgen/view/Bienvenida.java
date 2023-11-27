@@ -100,9 +100,7 @@ public class Bienvenida extends javax.swing.JFrame {
             }
         });
         jPanel3.add(BotonAdmin);
-
         jPanel1.add(jPanel3, java.awt.BorderLayout.CENTER);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,10 +111,8 @@ public class Bienvenida extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
         jPanel1.getAccessibleContext().setAccessibleName("");
         jPanel1.getAccessibleContext().setAccessibleDescription("");
-
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -124,7 +120,6 @@ public class Bienvenida extends javax.swing.JFrame {
     private void BotonCLienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCLienteActionPerformed
         String nombre=JOptionPane.showInputDialog(jPanel1, "ingrese su nombre", "Inicio de Sesión", JOptionPane.INFORMATION_MESSAGE);
         XGen.llenarUsuario(nombre);
-
         controlador.crearPanelUsuario(this);
         // TODO add your handling code here:
     }//GEN-LAST:event_BotonCLienteActionPerformed
@@ -135,7 +130,7 @@ public class Bienvenida extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(jPanel1, "Contraseña Incorrecta", "Inicio de Sesión", JOptionPane.WARNING_MESSAGE);
         }else{
             this.dispose();
-            new PanelAdministrador(this.controlador).setVisible(true);    
+            controlador.crearPanelAdministrador();    
         }
 // TODO add your handling code here:
     }//GEN-LAST:event_BotonAdminActionPerformed

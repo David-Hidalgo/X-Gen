@@ -334,11 +334,6 @@
           </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="nombreMedicamento">
-          <Properties>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="this.medicamento.getNombreMedicamento()" type="code"/>
-            </Property>
-          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nombreMedicamentoActionPerformed"/>
           </Events>
@@ -613,17 +608,11 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="almacenamientoActionPerformed"/>
           </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="if (medicamento instanceof com.program3.xgen.model.MedicamentoRefrigerado medicamento){&#xa;almacenamiento.setText((medicamento.getInformacionCadenaDeFrio())[0]);}"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="expoLuz">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="expoLuzActionPerformed"/>
           </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="if (medicamento instanceof com.program3.xgen.model.MedicamentoRefrigerado medicamento){&#xa;expoLuz.setText((medicamento.getInformacionCadenaDeFrio())[1]);}"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel26">
           <Properties>
@@ -673,9 +662,6 @@
               <Format format="#0" subtype="-1" type="0"/>
             </Property>
           </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if (medicamento instanceof com.program3.xgen.model.MedicamentoRefrigerado medicamento){ &#xa;    durabilidadLuegoDeAbierto.setText(Integer.toString(medicamento.getDurabilidadLuegoDeAbierto()));&#xa;}"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel11">
           <Properties>

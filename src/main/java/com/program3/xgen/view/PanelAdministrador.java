@@ -28,6 +28,8 @@ public class PanelAdministrador extends javax.swing.JFrame {
 
     public PanelAdministrador() {
         initComponents();
+        this.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+        
     }
 
     public PanelAdministrador(XGen controlador) {
@@ -57,6 +59,7 @@ public class PanelAdministrador extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButtonEliminar = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
 
         jPanel4.setLayout(new java.awt.BorderLayout());
@@ -137,6 +140,14 @@ public class PanelAdministrador extends javax.swing.JFrame {
         });
         jPanel3.add(jButtonEliminar);
 
+        jButton3.setText("Salir");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton3);
+
         jPanel2.add(jPanel3, java.awt.BorderLayout.SOUTH);
 
         jTabbedPane1.addTab("Lista de Medicamentos", jPanel2);
@@ -162,8 +173,8 @@ public class PanelAdministrador extends javax.swing.JFrame {
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         int a = jTable1.getSelectedRow();
         controlador.getListaMedicamentos().remove(a);
-        jTable1.repaint();
-
+        DefaultTableModel modelName = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+        modelName.removeRow(a);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
@@ -172,6 +183,12 @@ public class PanelAdministrador extends javax.swing.JFrame {
         controlador.editarMedicamento(rowActual, this.jTabbedPane1, this);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        this.dispose();
+        new com.program3.xgen.view.Bienvenida(this.controlador).setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,6 +230,7 @@ public class PanelAdministrador extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

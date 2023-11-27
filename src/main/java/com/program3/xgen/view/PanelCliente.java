@@ -4,6 +4,8 @@
  */
 package com.program3.xgen.view;
 
+import com.program3.xgen.XGen;
+
 /**
  *
  * @author David
@@ -11,6 +13,7 @@ package com.program3.xgen.view;
 public class PanelCliente extends javax.swing.JFrame {
 
     public PanelCliente(com.program3.xgen.XGen controlador) {
+        this.controlador =controlador;
         initComponents();
         controlador.obtenerListaCliente(jTable1);
         this.pack();
@@ -72,9 +75,19 @@ public class PanelCliente extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton1);
 
         jButton2.setText("Comprar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton2);
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_END);
@@ -92,6 +105,18 @@ public class PanelCliente extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        javax.swing.JOptionPane.showOptionDialog(this.jPanel1, "el costo total es", "Dinero a pagar", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.INFORMATION_MESSAGE , new javax.swing.ImageIcon(getClass().getResource("/icons/rating_3410511.png")), new String[]{"Comprar", "Cancelar"}, EXIT_ON_CLOSE);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+        new com.program3.xgen.view.Bienvenida(this.controlador).setVisible(true);
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -126,6 +151,26 @@ public class PanelCliente extends javax.swing.JFrame {
                 new PanelCliente().setVisible(true);
             }
         });
+    }
+
+    private XGen controlador;
+
+    /**
+     * Get the value of Controlador
+     *
+     * @return the value of Controlador
+     */
+    public XGen getControlador() {
+        return controlador;
+    }
+
+    /**
+     * Set the value of Controlador
+     *
+     * @param Controlador new value of Controlador
+     */
+    public void setControlador(XGen Controlador) {
+        this.controlador = Controlador;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

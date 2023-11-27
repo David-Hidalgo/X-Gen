@@ -71,6 +71,13 @@ public class XGen{
         modelName.addRow(nuevo);
     }
     
+    public void cerrarPanelEditar(javax.swing.JTabbedPane jTabbedPane, javax.swing.JPanel jPanel){
+        int a= jTabbedPane.indexOfComponent(jPanel);
+        System.out.println(a);
+        System.out.println();
+        jTabbedPane.removeTabAt(a);   
+    }
+    
     public void obtenerListaCliente(javax.swing.JTable table){
         for (Medicamento medicamento: listaMedicamentos){
             añadirMedicamentoCliente(table, medicamento);

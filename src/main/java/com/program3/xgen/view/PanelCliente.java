@@ -4,6 +4,8 @@
  */
 package com.program3.xgen.view;
 
+import javax.swing.JOptionPane;
+
 import com.program3.xgen.XGen;
 
 /**
@@ -134,7 +136,9 @@ public class PanelCliente extends javax.swing.JFrame {
         for (com.program3.xgen.model.Medicamento medicamento : controlador.getCarrito()) {
         dinero=dinero+ medicamento.getPrecio();
         }
-        javax.swing.JOptionPane.showOptionDialog(this.jPanel1, "el costo total es "+ dinero, "Dinero a pagar", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.INFORMATION_MESSAGE , new javax.swing.ImageIcon(getClass().getResource("/icons/rating_3410511.png")), new String[]{"Comprar", "Cancelar"}, EXIT_ON_CLOSE);
+        if(0==javax.swing.JOptionPane.showOptionDialog(this.jPanel1, "el costo total es "+ dinero, "Dinero a pagar", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.INFORMATION_MESSAGE , new javax.swing.ImageIcon(getClass().getResource("/icons/rating_3410511.png")), new String[]{"Pagar", "Volver"}, EXIT_ON_CLOSE)){
+                    javax.swing.JOptionPane.showMessageDialog(this, "\n gracias por comprar con nosotros, " + XGen.getNombreCliente());
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -146,7 +150,9 @@ public class PanelCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        int row=jTable1.getSelectedRow();
+        int row;
+        try{
+        row=jTable1.getSelectedRow();
         int numero = (int)jTable1.getValueAt(row, 3);
         com.program3.xgen.model.Medicamento medicamento=(com.program3.xgen.model.Medicamento)jTable1.getValueAt(row, 0);
         if (medicamento.getExistencia()>medicamento.getUnidadesVendidas()){
@@ -155,19 +161,30 @@ public class PanelCliente extends javax.swing.JFrame {
             medicamento.setUnidadesVendidas(++venta);
             controlador.getCarrito().add(medicamento);
         }
+        } catch (Exception e) {
+            // TODO: handle exception
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor seleccione un medicamento", getTitle(), JOptionPane.WARNING_MESSAGE);
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        int row=jTable1.getSelectedRow();
-        int numero = (int)jTable1.getValueAt(row, 3);
-               com.program3.xgen.model.Medicamento medicamento=(com.program3.xgen.model.Medicamento)jTable1.getValueAt(row, 0);
-        if (numero>0){
-            jTable1.setValueAt(--numero, row, 3);
-            int venta = medicamento.getUnidadesVendidas();
-            medicamento.setUnidadesVendidas(--venta);
-            controlador.getCarrito().remove(medicamento);
+        int row;
+        try {
+            row=jTable1.getSelectedRow();
+            int numero = (int)jTable1.getValueAt(row, 3);
+            com.program3.xgen.model.Medicamento medicamento=(com.program3.xgen.model.Medicamento)jTable1.getValueAt(row, 0);
+            if (numero>0){
+                jTable1.setValueAt(--numero, row, 3);
+                int venta = medicamento.getUnidadesVendidas();
+                medicamento.setUnidadesVendidas(--venta);
+                controlador.getCarrito().remove(medicamento);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor seleccione un medicamento", getTitle(), JOptionPane.WARNING_MESSAGE);
         }
+
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
